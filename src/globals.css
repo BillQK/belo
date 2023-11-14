@@ -1,0 +1,76 @@
+:root {
+  font-family: "Sarina-Regular";
+  font-size: 62.5%;
+
+  --primary-color: white; /* Replace with actual color codes */
+  --secondary-color: black;
+  --text-color: white;
+
+  --background: rgb(255, 255, 255);
+  --bg-opaque: rgba(17, 17, 17, 0.25);
+  --background-light: rgb(145, 200, 228);
+  --background-dark: rgb(8, 8, 8);
+
+  --text: rgb(19, 36, 47);
+  --brand: rgba(59, 111, 145, 0.716);
+
+  --text-xs: 1.6rem;
+  --text-sm: 1.8rem;
+  --text-md: 2.2rem;
+  --text-lg: 3.6rem;
+  --text-xl: 5.6rem;
+  --text-2xl: 9.6rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+html,
+body {
+  max-width: 100vw;
+  scroll-behavior: smooth;
+  font-size: var(--text-lg);
+  font-family: var(--font-family);
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-size: var(--text-lg);
+}
+
+.section-wrapper {
+  position: relative;
+  z-index: 10;
+  max-width: 1150px;
+  margin: auto;
+  padding: 9.6rem;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .section-wrapper {
+    padding: 7.2rem 2.4rem;
+  }
+}
+/* Responsive font sizes */
+@media (max-width: 768px) {
+  :root {
+    --text-lg: 3.2rem; /* Adjust as needed */
+    --text-md: 2rem; /* Adjust as needed */
+    --text-sm: 1.6rem; /* Adjust as needed */
+  }
+}
+.chip {
+  font-size: var(--text-xs);
+  background: var(--background-light);
+  padding: 0.2rem 0.8rem;
+  border-radius: 999px;
+}
