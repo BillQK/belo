@@ -1,0 +1,79 @@
+.post {
+  border: 1px solid rgba(0, 0, 0, 0.258);
+  border-radius: 20px !important ;
+  margin: 12px !important;
+  padding: 10px !important;
+  background-color: white !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post h1 {
+  font-size: var(--text-xl) !important;
+  text-overflow: ellipsis;
+}
+.post h2 {
+  text-overflow: ellipsis;
+  font-size: var(--text-lg);
+}
+.post p {
+  font-size: var(--text-sm);
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.music-body img {
+  width: 150px;
+  height: auto;
+}
+.post-header h3 {
+  margin-left: 10px;
+}
+.music-body p {
+  font-size: var(--text-sm);
+  border: 0;
+  white-space: initial;
+  border: 1px solid black;
+}
+
+.post-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.post-body {
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.5em;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.post-stat span {
+  margin-left: 20px;
+  margin-right: 20px;
+  vertical-align: text-bottom !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
