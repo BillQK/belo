@@ -1,14 +1,15 @@
 import React from "react";
 import Button from "../components/Button/Button";
-import { FaHamburger } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 import Post from "../components/Post/Post";
-
+import "./Profile.css";
 const userProfile = {
   name: "John Doe",
-  username: "@johndoe",
+  username: "@johndoe.the.great",
   coverImage: "/img/crowd.png",
   avatar: "/img/music.png",
-  description: "Sharing music with the whole wide world",
+  description:
+    "Sharing the joy of music with the whole wide world. It's a beautiful and fulfilling experience that allows us to connect, inspire, and uplift others through the power of sound.",
   followers: 54,
   following: 23,
   numberOfPosts: 2,
@@ -25,7 +26,7 @@ const userProfile = {
       shares: 2,
     },
     {
-      username: "@janedoe",
+      username: "@janedoe.the.great",
       imageUrl: "/img/crowd.png",
       musicUrl: "/img/crowd.png",
       songTitle: "Song Title",
@@ -47,21 +48,35 @@ const Profile = () => {
       </div>
       <div className="user-header">
         <img src={userProfile.avatar} alt="Avatar" className="avatar" />
-        <Button text="Edit Profile" type="primary" />
-        <FaHamburger />
+        <Button text="Edit Profile" type="edit" />
+        <Button text={<FaCog />} type="setting" />
       </div>
       <div className="user-info">
         <h1> {userProfile.name}</h1>
         <h2> {userProfile.username}</h2>
       </div>
       <div className="user-stat">
-        <h3>{userProfile.followers} </h3>
-        <h3>{userProfile.following} </h3>
-        <h3>{userProfile.numberOfPosts} </h3>
+        <h3 className="user-stat-item">
+          <span className="user-stat-number"> {userProfile.followers} </span>
+          <span className="user-stat-category">followers</span>
+        </h3>
+
+        <h3 className="user-stat-item">
+          <span className="user-stat-number"> {userProfile.following} </span>
+          <span className="user-stat-category">following</span>
+        </h3>
+        <h3 className="user-stat-item">
+          <span className="user-stat-number">
+            {" "}
+            {userProfile.numberOfPosts}{" "}
+          </span>
+          <span className="user-stat-category">posts</span>
+        </h3>
       </div>
       <div className="user-description">
         <p> {userProfile.description}</p>
       </div>
+      <hr />
       <div className="user-posts">
         {userProfile.posts &&
           userProfile.posts.map((post, index) => {
