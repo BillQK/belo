@@ -1,6 +1,8 @@
-import { FiHeart, FiMessageCircle, FiShare } from "react-icons/fi";
+import { FiShare } from "react-icons/fi";
 import "./Post.css";
 import MusicPlayer from "../MusicPlayer/Musicplayer";
+import { FaComment, FaHeart } from "react-icons/fa";
+import CommentSection from "../Comment/CommentSection";
 
 const Post = ({ post }) => {
   return (
@@ -12,11 +14,11 @@ const Post = ({ post }) => {
         </div>
         <div className="post-stat p-2">
           <span>
-            <FiHeart />
+            <FaHeart />
           </span>
           {post.likes}
           <span>
-            <FiMessageCircle />
+            <FaComment />
           </span>
           {post.comments}
           <span>
@@ -37,6 +39,10 @@ const Post = ({ post }) => {
       <div className="music-player">
         <MusicPlayer />
       </div>
+      <hr />
+      {/* <div className="comment-section">
+        <CommentSection />
+      </div> */}
     </div>
   );
 };

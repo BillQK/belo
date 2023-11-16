@@ -10,7 +10,7 @@
   height: 40px;
   background-color: rgb(5, 5, 5) !important;
   color: white;
-  border: 2px solid black !important;
+  /* border: 2px solid black !important; */
   border-radius: 0 !important;
 }
 
@@ -20,6 +20,6 @@
   margin-left: 15px;
   background-color: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
-  border: 2px solid black;
+  /* border: 2px solid black; */
   border-radius: 0 !important;
 }

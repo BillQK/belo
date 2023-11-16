@@ -16,10 +16,9 @@
   & > li {
     display: inline-flex;
     background: black;
-    border-radius: 20px 20px 20px 20px;
 
     &:is(:hover, :focus-within) > button:not(:active) {
-      --distance: -10px;
+      --distance: -1px;
     }
   }
 
@@ -38,7 +37,7 @@
 
     --distance: 0;
     transform: translateX(var(--distance)) translateY(var(--distance));
-    border-radius: 20px 20px 20px 20px;
+    /* border-radius: 20px 20px 20px 20px; */
 
     @media (prefers-reduced-motion: no-preference) {
       will-change: transform;

@@ -2,20 +2,24 @@
 import React from "react";
 import Button from "../components/Button/Button";
 import "./Navigation.css";
+import { Link } from "react-router-dom";
 const Navigation = () => (
   <nav className="d-flex main-navigation">
     <div className="flex-grow-1 main-navigation ">
-      <a href="/" className="logo ">
+      <Link to="/" className="logo ">
         Belo.
-      </a>
+      </Link>
     </div>
     <div className="main-navigation">
-      <Button text="Login" />
+      <Link to="/Login">
+        <Button text="Login" />
+      </Link>
     </div>
     <div className="main-navigation">
-      <Button text="Create Account" />
+      <Link to="/SignUp">
+        <Button text="Create Account" />
+      </Link>
     </div>
   </nav>
 );
-
 export default Navigation;

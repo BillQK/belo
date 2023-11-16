@@ -1,9 +1,9 @@
 .post {
-  border: 1px solid rgba(0, 0, 0, 0.258);
-  border-radius: 20px !important ;
+  border: 0.1rem solid rgb(0, 0, 0);
+  /* border-radius: 25px !important ; */
   margin: 12px !important;
   padding: 10px !important;
-  background-color: white !important;
+  background-color: rgb(255, 255, 255) !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -12,6 +12,7 @@
 .post h1 {
   font-size: var(--text-xl) !important;
   text-overflow: ellipsis;
+  white-space: initial;
 }
 .post h2 {
   text-overflow: ellipsis;
@@ -25,6 +26,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 1px;
 }
 
 .music-body img {

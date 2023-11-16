@@ -1,39 +1,45 @@
 import { FiUser, FiBell, FiSearch, FiHome, FiFolder } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import "./DashNav.css";
 
 const DashNav = () => {
+  const navigate = useNavigate(); // useNavigate hook for navigation
+
+  const handleButtonClick = (path) => {
+    navigate(`/dashboard${path}`); // Adjusted path for parameterized routing
+  };
   return (
-    <nav class="dashboard-nav">
+    <nav className="dashboard-nav">
       <ul>
-        <h1>Belo</h1>
+        <h1>Belo.</h1>
       </ul>
-      <ul class="shadow-button-set">
+      <ul className="shadow-button-set">
         <li>
-          <button>
+          <button onClick={() => handleButtonClick("/feed")}>
             <FiHome />
             Home
           </button>
         </li>
         <li>
-          <button>
+          <button onClick={() => handleButtonClick("/search")}>
             <FiSearch />
             Search
           </button>
         </li>
         <li>
-          <button>
+          <button onClick={() => handleButtonClick("/messages")}>
             <FiBell />
             Messages
           </button>
         </li>
         <li>
-          <button>
+          <button onClick={() => handleButtonClick("/playlist")}>
             <FiFolder />
             Playlist
           </button>
         </li>
         <li>
-          <button>
+          <button onClick={() => handleButtonClick("/profile")}>
             <FiUser />
             Profile
           </button>
