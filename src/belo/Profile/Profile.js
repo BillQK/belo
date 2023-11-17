@@ -1,46 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../components/Button/Button";
 import { FaCog } from "react-icons/fa";
 import Post from "../components/Post/Post";
+import Modal from "../components/Modal/Modal";
 import "./Profile.css";
-const userProfile = {
-  name: "John Doe",
-  username: "@johndoe.the.great",
-  coverImage: "/img/crowd.png",
-  avatar: "/img/music.png",
-  description:
-    "Sharing the joy of music with the whole wide world. It's a beautiful and fulfilling experience that allows us to connect, inspire, and uplift others through the power of sound.",
-  followers: 54,
-  following: 23,
-  numberOfPosts: 2,
-  posts: [
-    {
-      username: "@johndoe",
-      imageUrl: "/img/music.png",
-      musicUrl: "/img/music.png",
-      songTitle: "Song Title",
-      artistName: "Artist Name",
-      description: "Walking and listening to this",
-      likes: 123,
-      comments: 4,
-      shares: 2,
-    },
-    {
-      username: "@janedoe.the.great",
-      imageUrl: "/img/crowd.png",
-      musicUrl: "/img/crowd.png",
-      songTitle: "Song Title",
-      artistName: "Artist Name",
-      description:
-        "Walking and listening to this Nothing beats a sunset hike in the mountains.Nothing beats a sunset hike in the mountains.Nothing beats a sunset hike in the mountains.",
-      likes: 98,
-      comments: 7,
-      shares: 3,
-    },
-  ],
-};
+
+import { useSelector, useDispatch } from "react-redux";
+import { updateUserProfile } from "./ProfileReducer";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const userProfile = useSelector((state) => state.userProfile);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleSave = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const profileData = {
+      name: formData.get("name"),
+      description: formData.get("description"),
+      // include other fields as necessary
+    };
+    dispatch(updateUserProfile(profileData));
+    setIsEditing(false);
+  };
+
+  // Function to open the modal
+  const openEditModal = () => setIsEditing(true);
+
+  // Function to close the modal
+  const closeEditModal = () => setIsEditing(false);
   return (
     <div className="profile">
       <div className="cover-Image">
@@ -48,7 +37,7 @@ const Profile = () => {
       </div>
       <div className="user-header">
         <img src={userProfile.avatar} alt="Avatar" className="avatar" />
-        <Button text="Edit Profile" type="edit" />
+        <Button text="Edit Profile" type="edit" onClick={openEditModal} />
         <Button text={<FaCog />} type="setting" />
       </div>
       <div className="user-info">
@@ -83,6 +72,59 @@ const Profile = () => {
             return <Post key={index} post={post} />;
           })}
       </div>
+      <Modal show={isEditing} onClose={closeEditModal}>
+        <form onSubmit={handleSave}>
+          <label>
+            <img
+              src={userProfile.coverImage || "/img/default-cover.png"}
+              alt="Cover"
+              className="cover-image-preview"
+            />
+
+            <input
+              name="cover"
+              type="file"
+              accept="image/png, image/jpeg"
+              style={{ display: "none" }}
+            />
+          </label>
+          <label>
+            <img
+              src={userProfile.avatar || "/img/default-avatar.png"}
+              alt="Avatar"
+              className="avatar-image-preview"
+            />
+
+            <input
+              name="avatar"
+              type="file"
+              accept="image/png, image/jpeg"
+              style={{ display: "none" }}
+            />
+          </label>
+          <div className="edit-body">
+            <label for="name">Display Name </label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Name"
+              defaultValue={userProfile.name}
+            />
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Description"
+              defaultValue={userProfile.description}
+            ></textarea>
+
+            <button className="my-3" type="submit">
+              Save Changes
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };

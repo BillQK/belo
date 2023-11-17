@@ -6,20 +6,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./globals.css";
 import Login from "./belo/Login";
 import SignUp from "./belo/SignUp";
+import store from "./belo/store";
+import { Provider } from "react-redux";
 function App() {
   return (
     <div className="App">
-      <HashRouter>
-        <div>
-          <Routes>
-            <Route path="/" element={<Navigate to="/Home" />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Dashboard/:param" element={<DashBoard />} />
-            <Route path="/Login/*" element={<Login/>} />
-            <Route path="/SignUp/*" element={<SignUp/>} />
-          </Routes>
-        </div>
-      </HashRouter>
+      <Provider store={store}>
+        <HashRouter>
+          <div>
+            <Routes>
+              <Route path="/" element={<Navigate to="/Home" />} />
+              <Route path="/Home" element={<Home />} />
+              <Route path="/Dashboard/:param" element={<DashBoard />} />
+              <Route path="/Login/*" element={<Login />} />
+              <Route path="/SignUp/*" element={<SignUp />} />
+            </Routes>
+          </div>
+        </HashRouter>
+      </Provider>
     </div>
   );
 }
