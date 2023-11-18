@@ -1,10 +1,10 @@
-import DashBoardNavigation from "./DashBoardNavigation";
-import "./Dashboard.css";
-import Feed from "./Feed";
-import Sidebar from "./Sidebar";
+import "./index.css";
+import Feed from "../components/Feed/Feed";
+import Sidebar from "../components/SideBar/Sidebar";
 import { useParams } from "react-router";
 import Profile from "../Profile/Profile";
 import Search from "../Search/Search";
+import DashNav from "../components/DashNav/DashNav";
 const DashBoard = () => {
   const { param } = useParams();
 
@@ -13,7 +13,7 @@ const DashBoard = () => {
       <div className="dashboard container">
         <div className="row">
           <div className=" col-sm-3">
-            <DashBoardNavigation />
+            <DashNav />
           </div>
           <div className=" col-sm-6 ">
             {param === "profile" ? (
