@@ -6,7 +6,7 @@ const DashNav = () => {
   const navigate = useNavigate(); // useNavigate hook for navigation
 
   const handleButtonClick = (path) => {
-    navigate(`/dashboard${path}`); // Adjusted path for parameterized routing
+    navigate(`/Dashboard${path}`); // Adjusted path for parameterized routing
   };
   return (
     <nav className="dashboard-nav">

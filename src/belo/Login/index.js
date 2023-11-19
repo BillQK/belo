@@ -1,10 +1,14 @@
 import React from "react";
+import Button from "../components/Button/Button";
+
+import { loginEndpoint } from "../../spotify";
 
 const Login = () => {
   return (
-    <div>
-      <input type="text" placeholder="Username" />
-      <input type="password" placeholder="Password" />
+    <div className="Login-page">
+      <a href={loginEndpoint}>
+        <Button text="Login" />
+      </a>
     </div>
   );
 };
