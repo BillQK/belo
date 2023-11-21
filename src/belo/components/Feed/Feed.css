@@ -1,6 +1,5 @@
 .feed {
-  background-color: var(--primary-color);
-  border: 1px solid #e1e1e1;
+  background-color: var(--background-dark);
   /* border-radius: 20px 20px 20px 20px; */
   height: 100vh;
   overflow-y: scroll;

@@ -4,9 +4,11 @@ import "./Musicplayer.css";
 const MusicPlayer = () => {
   return (
     <div className="music-player">
-      <div className="play-button" />
+      {/* <div className="play-button" /> */}
       <div className="progress-bar-container">
-        <div className="progress-bar" />
+        <div className="progress-bar">
+          <div className="circle-bar"></div>
+        </div>
       </div>
       <div className="timestamp">0:00 / 3:30</div>
     </div>
