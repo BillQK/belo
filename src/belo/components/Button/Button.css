@@ -1,5 +1,4 @@
 .btn {
-  padding: 10px 20px;
   border: none;
   cursor: pointer;
   font-size: var(--text-sm) !important;
@@ -12,6 +11,7 @@
   color: white;
   /* border: 2px solid black !important; */
   border-radius: 0 !important;
+  align-items: center;
 }
 
 .btn-secondary {
@@ -20,7 +20,7 @@
   margin-left: 15px;
   background-color: rgb(255, 255, 255) !important;
   color: rgb(0, 0, 0) !important;
-  /* border: 2px solid black; */
+  border: 2px solid black;
   border-radius: 0 !important;
 }
 
