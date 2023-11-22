@@ -2,7 +2,6 @@ import { FiShare } from "react-icons/fi";
 import "./Post.css";
 import MusicPlayer from "../MusicPlayer/Musicplayer";
 import { FaComment, FaHeart } from "react-icons/fa";
-import CommentSection from "../Comment/CommentSection";
 
 const Post = ({ post }) => {
   return (
@@ -39,7 +38,7 @@ const Post = ({ post }) => {
         </span>
         {post.shares}
       </div>
-      <hr />
+
       {/* <div className="comment-section">
         <CommentSection />
       </div> */}

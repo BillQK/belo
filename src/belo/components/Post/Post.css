@@ -1,5 +1,5 @@
 .post {
-  border: 0.1rem solid rgb(0, 0, 0);
+  border: 0.1rem solid #6476dc;
   /* border-radius: 25px !important ; */
   margin: 12px !important;
   padding: 10px !important;
@@ -7,6 +7,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-radius: 10px;
   /* border: 1px solid #6476dc; */
   /* border-radius: 20px; */
 }
