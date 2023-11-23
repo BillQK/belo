@@ -7,6 +7,7 @@ import "./Profile.css";
 
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
+import EndOfFeed from "../components/EndOfFeed/EndOfFeed";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ const Profile = () => {
             return <Post key={index} post={post} />;
           })}
       </div>
+      <EndOfFeed />
       <Modal show={isEditing} onClose={closeEditModal}>
         <form onSubmit={handleSave}>
           <label>
@@ -117,10 +119,19 @@ const Profile = () => {
               name="description"
               placeholder="Description"
               defaultValue={userProfile.description}
+              rows="4"
+              cols="50"
             ></textarea>
 
-            <button className="my-3" type="submit">
+            <button className="my-3 save-button" type="submit">
               Save Changes
+            </button>
+            <button
+              className="cancel-button"
+              type="button"
+              onClick={() => closeEditModal()}
+            >
+              Cancel
             </button>
           </div>
         </form>

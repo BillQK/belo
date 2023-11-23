@@ -1,0 +1,11 @@
+.endoffeed {
+  padding: 100px;
+  padding-bottom: 450px;
+  padding-top: 50px;
+  text-align: center;
+}
+.endoffeed p {
+  color: #6476dc;
+  font-size: large;
+  font-style: italic;
+}

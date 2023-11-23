@@ -81,6 +81,7 @@
   height: 100%;
   opacity: 1;
   transition: opacity 0.5s ease-out;
+  /* border: 2px solid #ffffff; */
 }
 
 .cover-image-preview:hover {
@@ -99,6 +100,7 @@
   margin-left: 10px;
   opacity: 1;
   transition: opacity 0.5s ease-out;
+  /* border: 2px solid #ffffff; */
 }
 
 .avatar-image-preview:hover {
@@ -112,4 +114,60 @@
   flex-direction: column;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+.edit-body label {
+  color: whitesmoke;
+  font-size: large;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.edit-body input,
+textarea {
+  background-color: #000000;
+  color: #6476dc;
+  border: 1px solid #6476dc;
+  font-size: large;
+  border-radius: 0.5rem;
+  padding: 10px;
+}
+
+.edit-body textarea {
+  size: fit-content;
+}
+.cancel-button,
+.save-button {
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: medium;
+  border: 1px solid #6476dc;
+}
+
+.cancel-button {
+  background-color: #6476dc; /* Bootstrap's secondary button color */
+  color: white;
+}
+.save-button {
+  margin-top: 50px !important;
+  background-color: #6476dc;
+}
+
+/* Ensure that the close button has a background on hover for better UX */
+.close-button:hover {
+  background-color: #f8f9fa; /* Light grey background */
+}
+
+/* Ensure that the buttons in the footer have a hover effect for better UX */
+.cancel-button:hover {
+  background-color: black; /* A darker shade of secondary color */
+}
+
+.save-button:hover {
+  background-color: black; /* A darker shade of primary color */
 }

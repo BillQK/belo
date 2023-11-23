@@ -1,4 +1,4 @@
-import { FiShare } from "react-icons/fi";
+import { FiBookmark, FiShare } from "react-icons/fi";
 import "./Post.css";
 import MusicPlayer from "../MusicPlayer/Musicplayer";
 import { FaComment, FaHeart } from "react-icons/fa";
@@ -27,16 +27,19 @@ const Post = ({ post }) => {
       <div className="post-stat p-2">
         <span>
           <FaHeart />
+          <text> {post.likes}</text>
         </span>
-        {post.likes}
         <span>
           <FaComment />
+          <text> {post.comments}</text>
         </span>
-        {post.comments}
         <span>
           <FiShare />
+          <text> {post.shares}</text>
         </span>
-        {post.shares}
+        <span>
+          <FiBookmark />
+        </span>
       </div>
 
       {/* <div className="comment-section">

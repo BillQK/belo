@@ -1,3 +1,4 @@
+import EndOfFeed from "../EndOfFeed/EndOfFeed";
 import Post from "../Post/Post";
 import "./Feed.css";
 const userPosts = [
@@ -55,6 +56,7 @@ function Feed() {
       {userPosts.map((post, index) => (
         <Post key={index} post={post} />
       ))}
+      <EndOfFeed />
     </div>
   );
 }

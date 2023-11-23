@@ -10,11 +10,7 @@ const Modal = ({ show, onClose, children }) => {
     <div className="modal-backdrop">
       <div className="modal-content">
         <div className="modal-body">{children}</div>
-        <div className="modal-footer">
-          <button onClick={onClose} className="cancel-button">
-            Cancel
-          </button>
-        </div>
+        <div className="modal-footer"></div>
       </div>
     </div>
   );
