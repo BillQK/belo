@@ -50,7 +50,7 @@ const userPosts = [
     shares: 3,
   },
 ];
-function Feed() {
+const Feed = () => {
   return (
     <div className="feed">
       {userPosts.map((post, index) => (
@@ -59,5 +59,5 @@ function Feed() {
       <EndOfFeed />
     </div>
   );
-}
+};
 export default Feed;

@@ -29,7 +29,7 @@ const DashNav = () => {
         <li>
           <button onClick={() => handleButtonClick("/messages")}>
             <FiBell />
-            Messages
+            Alerts
           </button>
         </li>
         <li>
