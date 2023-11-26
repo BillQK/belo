@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../components/Button/Button";
+import Button from "../Home/Button/Button";
 
 import { loginEndpoint } from "../../spotify";
 import * as client from "../Services/client";

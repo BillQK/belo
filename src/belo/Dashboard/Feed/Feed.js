@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EndOfFeed from "../EndOfFeed/EndOfFeed";
+import EndOfFeed from "./EndOfFeed/EndOfFeed";
 import Post from "../Post/Post";
 import * as client from "../../Services/client";
 import "./Feed.css";

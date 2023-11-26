@@ -1,9 +1,9 @@
 import React from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation hook
 import db from "../Database/index";
-import User from "../components/User/User";
+import User from "./Search/User/User";
 import "./Search.css";
-import EndOfFeed from "../components/EndOfFeed/EndOfFeed";
+import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
 
 const suggestedUsers = db.users;
 

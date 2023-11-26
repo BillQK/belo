@@ -1,7 +1,7 @@
-import Navigation from "../components/Nav/Navigation";
-import Header from "../components/Header/Header";
-import Banner from "../components/Banner/Banner";
-import InfoSection from "../components/InfoSection/InfoSection";
+import Navigation from "./Nav/Navigation";
+import Header from "./Header/Header";
+import Banner from "./Banner/Banner";
+import InfoSection from "./InfoSection/InfoSection";
 
 const Home = () => {
   return (

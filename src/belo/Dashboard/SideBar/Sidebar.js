@@ -1,5 +1,5 @@
 import MusicPlayer from "../MusicPlayer/Musicplayer";
-import SearchBar from "../Search/SearchBar";
+import SearchBar from "../../Search/Search/SearchBar";
 import "./Sidebar.css";
 const Sidebar = () => {
   return (
