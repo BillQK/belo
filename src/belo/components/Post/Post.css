@@ -98,15 +98,19 @@
   align-items: center;
   margin-top: 20px;
 }
-.post-stat text {
+.stat {
   font-weight: bold;
-  margin-right: 20px;
+  margin-right: 1px;
+  margin-top: 2px;
 }
-.post-stat span {
+.post-stat {
   margin-left: 20px;
   margin-right: 20px;
   vertical-align: text-bottom !important;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.post svg {
+  font-size: 24px;
 }

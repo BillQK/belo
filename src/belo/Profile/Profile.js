@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "../Home/Button/Button";
 import { FaCog } from "react-icons/fa";
-import Post from "../Dashboard/Post/Post";
+import Post from "../components/Post/Post";
 import Modal from "./Modal/Modal";
 import "./Profile.css";
 

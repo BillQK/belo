@@ -54,15 +54,15 @@ const Post = ({ post, onPostClicked }) => {
       <div className="post-stat p-2">
         <span onClick={toggleLike}>
           {liked ? <FaHeart /> : <FaRegHeart />}
-          <span> {numberOfLikes}</span>
+          <span className="stat"> {numberOfLikes}</span>
         </span>
         <span>
           <FaRegComment />
-          <span> {post.comments}</span>
+          <span className="stat"> {post.comments}</span>
         </span>
         <span>
           <FiShare />
-          <span> {post.shares}</span>
+          <span className="stat"> {post.shares}</span>
         </span>
         <span onClick={toggleBookMark}>
           {bookMarked ? <FaBookmark /> : <FaRegBookmark />}
