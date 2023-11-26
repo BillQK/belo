@@ -1,0 +1,11 @@
+#suggestedFollow {
+  color: white;
+  font-size: smaller !important;
+  padding: 10px;
+  border: 1px solid #6476dc;
+  margin: 0;
+}
+.search {
+  height: 100vh;
+  overflow-y: scroll;
+}

@@ -12,10 +12,11 @@ const DashBoard = () => {
     <div className="background">
       <div className="dashboard container">
         <div className="row">
-          <div className=" col-sm-3">
+          <div className="col-sm-3 d-none d-lg-block">
             <DashNav />
           </div>
-          <div className=" col-sm-6 ">
+
+          <div className="col-12 col-lg-6">
             {param === "profile" ? (
               <Profile />
             ) : param === "search" ? (
@@ -24,7 +25,8 @@ const DashBoard = () => {
               <Feed />
             )}
           </div>
-          <div className="  col-sm-3">
+
+          <div className="col-sm-3 d-none d-lg-block">
             <Sidebar />
           </div>
         </div>

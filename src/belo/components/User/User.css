@@ -1,0 +1,42 @@
+.user-card {
+  border: 1px solid #6476dc;
+}
+.card-img {
+  width: 15%;
+}
+.card-img img {
+  width: 65%;
+  margin: 20px;
+  border-radius: 100px;
+}
+.card-body {
+  margin-top: 23px;
+}
+.card-body h1 {
+  color: white;
+  font-size: large !important;
+}
+.card-body h3 {
+  color: white;
+  font-size: medium !important;
+  font-weight: lighter;
+}
+.card-description p {
+  color: white;
+  font-size: medium !important;
+  padding-left: 100px;
+  margin-top: -20px;
+}
+.card-button button {
+  border-radius: 100px;
+  color: white;
+  background-color: #6476dc;
+  font-size: large;
+  padding: 2px;
+  width: 100%;
+  margin: 10px;
+}
+.card-button {
+  margin-top: 4px;
+  margin-right: 50px;
+}
