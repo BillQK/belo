@@ -25,9 +25,10 @@
   color: white;
   font-size: medium !important;
   padding-left: 100px;
-  margin-top: -20px;
+  margin-top: -35px;
 }
 .card-button button {
+  border: solid 1px black;
   border-radius: 100px;
   color: white;
   background-color: #6476dc;
@@ -39,4 +40,11 @@
 .card-button {
   margin-top: 4px;
   margin-right: 50px;
+}
+/* Button styling when followed */
+.card-button .followed {
+  background-color: black; /* Change the background color to indicate follow status */
+  border: 1px solid #6476dc;
+  color: white;
+  /* other styles for the followed state */
 }

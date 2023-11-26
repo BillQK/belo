@@ -1,9 +1,31 @@
-import { FiBookmark, FiShare } from "react-icons/fi";
 import "./Post.css";
 import MusicPlayer from "../MusicPlayer/Musicplayer";
-import { FaComment, FaHeart } from "react-icons/fa";
-
-const Post = ({ post }) => {
+import {
+  FaHeart,
+  FaBookmark,
+  FaRegBookmark,
+  FaRegHeart,
+  FaRegComment,
+} from "react-icons/fa";
+import { useState } from "react";
+import { FiShare } from "react-icons/fi";
+const Post = ({ post, onPostClicked }) => {
+  const [liked, setLiked] = useState(false);
+  const [numberOfLikes, setNumberOfLikes] = useState(+post.likes);
+  const [bookMarked, setBookMarked] = useState(false);
+  const handleClick = () => {
+    console.log("Clicked");
+    // onPostClicked(post.song);
+  };
+  const toggleLike = () => {
+    setLiked(!liked);
+    liked
+      ? setNumberOfLikes(numberOfLikes - 1)
+      : setNumberOfLikes(numberOfLikes + 1);
+  };
+  const toggleBookMark = () => {
+    setBookMarked(!bookMarked);
+  };
   return (
     <div className="post">
       <div className="post-header">
@@ -14,7 +36,12 @@ const Post = ({ post }) => {
       </div>
       <p>{post.description}</p>
       <div className="music-body d-flex">
-        <img src={post.musicUrl} alt="Music" className="music-image" />
+        <img
+          src={post.musicUrl}
+          alt="Music"
+          className="music-image"
+          onClick={handleClick}
+        />
         <div className="post-body p-2">
           <h2>{post.songTitle}</h2>
           <h3>{post.artistName}</h3>
@@ -25,20 +52,20 @@ const Post = ({ post }) => {
       </div>
 
       <div className="post-stat p-2">
-        <span>
-          <FaHeart />
-          <text> {post.likes}</text>
+        <span onClick={toggleLike}>
+          {liked ? <FaHeart /> : <FaRegHeart />}
+          <span> {numberOfLikes}</span>
         </span>
         <span>
-          <FaComment />
-          <text> {post.comments}</text>
+          <FaRegComment />
+          <span> {post.comments}</span>
         </span>
         <span>
           <FiShare />
-          <text> {post.shares}</text>
+          <span> {post.shares}</span>
         </span>
-        <span>
-          <FiBookmark />
+        <span onClick={toggleBookMark}>
+          {bookMarked ? <FaBookmark /> : <FaRegBookmark />}
         </span>
       </div>
 

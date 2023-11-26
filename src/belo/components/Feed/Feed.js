@@ -4,7 +4,7 @@ import Post from "../Post/Post";
 import * as client from "../../Services/client";
 import "./Feed.css";
 
-const Feed = () => {
+const Feed = ({ onPostClicked }) => {
   const [posts, setPosts] = useState([]);
   const fetchPosts = async () => {
     const posts = await client.getAllPosts();
@@ -16,7 +16,7 @@ const Feed = () => {
   return (
     <div className="feed">
       {posts.map((post, index) => (
-        <Post key={index} post={post} />
+        <Post key={index} post={post} onPostClicked={onPostClicked} />
       ))}
       <EndOfFeed />
     </div>

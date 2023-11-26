@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../components/EndOfFeed/EndOfFeed";
 
-const Profile = () => {
+const Profile = ({ onPostClicked }) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
@@ -70,7 +70,9 @@ const Profile = () => {
       <div className="user-posts">
         {userProfile.posts &&
           userProfile.posts.map((post, index) => {
-            return <Post key={index} post={post} />;
+            return (
+              <Post key={index} post={post} onPostClicked={onPostClicked} />
+            );
           })}
       </div>
       <EndOfFeed />
