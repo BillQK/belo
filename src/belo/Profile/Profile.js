@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../Home/Button/Button";
 import { FaCog } from "react-icons/fa";
 import Post from "../components/Post/Post";
-import Modal from "./Modal/Modal";
+import Modal from "../components/Modal/Modal";
 import "./Profile.css";
 
 import { useSelector, useDispatch } from "react-redux";

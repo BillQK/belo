@@ -6,6 +6,7 @@ import Profile from "../Profile/Profile";
 import Search from "../Search/Search";
 import DashNav from "./DashNav/DashNav";
 import { useState } from "react";
+
 const DashBoard = () => {
   const { param } = useParams();
   const [currentSong, setCurrentSong] = useState(null); // Add state to keep track of the current song
