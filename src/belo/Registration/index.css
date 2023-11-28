@@ -1,0 +1,34 @@
+.background {
+  background-color: var(--background-dark);
+  width: 100%;
+  height: 100vh;
+}
+
+.register {
+  margin: 0;
+  background-color: var(--background-dark);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.description {
+  background-color: #6476dc;
+  height: 100vh;
+  padding: 100px;
+}
+
+.description h1 {
+  text-align: center;
+  text-decoration: underline;
+  color: white;
+}
+
+.description p {
+  text-align: center;
+  color: white;
+  font-size: 80%;
+}
+
+.register-box {
+  height: 100vh;
+}

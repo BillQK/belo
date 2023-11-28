@@ -4,7 +4,7 @@ import Button from "../Home/Button/Button";
 import { loginEndpoint } from "../../spotify";
 import * as client from "../Services/client";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Login = () => {
   const [credentials, setCredentials] = useState({
     username: "",
@@ -13,10 +13,13 @@ const Login = () => {
   const navigate = useNavigate();
   const signin = async () => {
     await client.signin(credentials);
-    navigate("/project/account");
+    navigate("/");
+  };
+  const handleButtonClick = (path) => {
+    navigate(`/Register${path}`); // Adjusted path for parameterized routing
   };
   return (
-    <div className="Login-page">
+    <div className="login">
       <h1>Signin</h1>
       <input
         value={credentials.username}
@@ -31,6 +34,7 @@ const Login = () => {
         }
       />
       <button onClick={signin}> Signin </button>
+      <button onClick={() => handleButtonClick("/Signup")}>Register</button>
       <a href={loginEndpoint}>
         <Button text="Login" />
       </a>

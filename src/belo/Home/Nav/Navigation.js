@@ -11,12 +11,12 @@ const Navigation = () => (
       </Link>
     </div>
     <div className="main-navigation">
-      <Link to="/Login">
+      <Link to="/Register">
         <Button text="Login" />
       </Link>
     </div>
     <div className="main-navigation">
-      <Link to="/SignUp">
+      <Link to="/Register">
         <Button text="Create Account" />
       </Link>
     </div>

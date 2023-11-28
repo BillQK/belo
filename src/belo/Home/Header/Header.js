@@ -19,13 +19,13 @@ const Header = () => {
           <Button
             text="LOGIN"
             type="primary"
-            onClick={() => handleButtonClick("/Login/")}
+            onClick={() => handleButtonClick("/Register/Login")}
           />
 
           <Button
             text="CREATE ACCOUNT"
             type="secondary"
-            onClick={() => handleButtonClick("/SignUp/")}
+            onClick={() => handleButtonClick("/Register/Signup")}
           />
         </div>
         <Link to="/Dashboard/feed">Or Learn More</Link>

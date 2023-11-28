@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  FaEnvelope,
-  FaFolder,
-  FaKey,
-  FaLocationArrow,
-  FaLock,
-  FaPassport,
-  FaUser,
-} from "react-icons/fa";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import "./index.css";
 const SignUp = () => {
   return (
