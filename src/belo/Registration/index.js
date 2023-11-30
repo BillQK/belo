@@ -1,11 +1,26 @@
 import Login from "./LogIn";
+import SetUpProfile from "./SetUpProfile";
 import SignUp from "./SignUp";
 import "./index.css";
 import { useParams } from "react-router";
 
 const Register = () => {
   const { param } = useParams();
-  console.log(param);
+
+  const renderComponent = () => {
+    switch (param) {
+      case "Login":
+        return <Login />;
+      case "Signup":
+        return <SignUp />;
+      case "Setup":
+        return <SetUpProfile />;
+      default:
+        // Return null or a default component
+        return <Login />;
+    }
+  };
+
   return (
     <div className="background">
       <div className="register container">
@@ -19,7 +34,7 @@ const Register = () => {
           </div>
 
           <div className="register-box col-12 col-lg-5">
-            {param === "Login" ? <Login /> : <SignUp />}
+            {renderComponent()}
           </div>
         </div>
       </div>

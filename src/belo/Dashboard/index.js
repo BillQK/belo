@@ -14,6 +14,17 @@ const DashBoard = () => {
   const handlePostClicked = (song) => {
     setCurrentSong(song); // Function to update the current song
   };
+  const renderComponent = () => {
+    switch (param) {
+      case "profile":
+        return <Profile onPostClicked={handlePostClicked} />;
+      case "search":
+        return <Search />;
+      default:
+        // Return null or a default component
+        return <Feed onPostClicked={handlePostClicked} />;
+    }
+  };
   return (
     <div className="background">
       <div className="dashboard container">
@@ -22,15 +33,7 @@ const DashBoard = () => {
             <DashNav />
           </div>
 
-          <div className="col-12 col-lg-6">
-            {param === "profile" ? (
-              <Profile onPostClicked={handlePostClicked} />
-            ) : param === "search" ? (
-              <Search />
-            ) : (
-              <Feed onPostClicked={handlePostClicked} />
-            )}
-          </div>
+          <div className="col-12 col-lg-6">{renderComponent()}</div>
 
           <div className="col-sm-3 d-none d-lg-block">
             <Sidebar currentSong={currentSong} />

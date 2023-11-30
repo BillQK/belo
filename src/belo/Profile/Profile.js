@@ -78,7 +78,7 @@ const Profile = ({ onPostClicked }) => {
       <EndOfFeed />
       <Modal show={isEditing} onClose={closeEditModal}>
         <form onSubmit={handleSave}>
-          <label>
+          <label className="cover-image-preview">
             <img
               src={userProfile.coverImage || "/img/default-cover.png"}
               alt="Cover"
@@ -92,6 +92,7 @@ const Profile = ({ onPostClicked }) => {
               style={{ display: "none" }}
             />
           </label>
+
           <label>
             <img
               src={userProfile.avatar || "/img/default-avatar.png"}

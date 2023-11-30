@@ -2,18 +2,24 @@ import React from "react";
 import Button from "../Home/Button/Button";
 
 import { loginEndpoint } from "../../spotify";
-import * as client from "../Services/client";
+import * as client from "../Services/userClient";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { setCurrentUser } from "../User/userReducer";
 const Login = () => {
-  const [credentials, setCredentials] = useState({
+  const { currentUser } = useSelector((state) => state.user);
+  const [user, setUser] = useState({
     username: "",
     password: "",
   });
   const navigate = useNavigate();
-  const signin = async () => {
-    await client.signin(credentials);
-    navigate("/");
+  const dispatch = useDispatch();
+  const signIn = async () => {
+    await client.signIn(user);
+    dispatch(setCurrentUser(currentUser));
+    navigate("/Dashboard/feed");
   };
   const handleButtonClick = (path) => {
     navigate(`/Register${path}`); // Adjusted path for parameterized routing
@@ -22,18 +28,16 @@ const Login = () => {
     <div className="login">
       <h1>Signin</h1>
       <input
-        value={credentials.username}
-        onChange={(e) =>
-          setCredentials({ ...credentials, username: e.target.value })
-        }
+        type="text"
+        value={user.username}
+        onChange={(e) => setUser({ ...user, username: e.target.value })}
       />
       <input
-        value={credentials.password}
-        onChange={(e) =>
-          setCredentials({ ...credentials, password: e.target.value })
-        }
+        type="password"
+        value={user.password}
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
       />
-      <button onClick={signin}> Signin </button>
+      <button onClick={signIn}> Signin </button>
       <button onClick={() => handleButtonClick("/Signup")}>Register</button>
       <a href={loginEndpoint}>
         <Button text="Login" />

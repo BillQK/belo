@@ -1,8 +1,8 @@
 {
   "name": "John Doe",
   "username": "@johndoe.the.great",
-  "coverImage": "/img/crowd.png",
-  "avatar": "/img/music.png",
+  "coverImage": "/img/default-cover.png",
+  "avatar": "/img/default-avatar.png",
   "description": "Sharing the joy of music with the whole wide world. It's a beautiful and fulfilling experience that allows us to connect, inspire, and uplift others through the power of sound.",
   "followers": "54",
   "following": "23",

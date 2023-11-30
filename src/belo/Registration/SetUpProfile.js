@@ -1,27 +1,24 @@
 import React, { useState } from "react";
-import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import "./index.css";
 import { useNavigate } from "react-router";
-import * as userClient from "../Services/userClient";
+import * as profileClient from "../Services/profilesClient";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { setCurrentUser } from "../User/userReducer";
-import { useDispatch } from "react-redux";
-const SignUp = () => {
+const SetUpProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState({
-    username: "",
-    email: "",
-    password: "",
+  console.log(currentUser);
+  const [profile, setProfile] = useState({
+    userId: currentUser._id,
+    userName: "",
+    displayName: "",
+    description: "",
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const signUp = async () => {
+  const createProfile = async () => {
     try {
-      const currentUser = await userClient.signUp(user);
-      dispatch(setCurrentUser(currentUser));
-      navigate("/Register/Setup");
+      const profileDetails = await profileClient.createProfile(profile);
+      navigate("/Dashboard/feed");
     } catch (error) {
       setError(error);
     }
@@ -34,32 +31,38 @@ const SignUp = () => {
       </div>
       <div className="inputs">
         <div className="inputs">
-          <FaUser />
+          Display Name
           <input
             type="text"
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
+            value={profile.displayName}
+            onChange={(e) =>
+              setProfile({ ...profile, displayName: e.target.value })
+            }
           />
         </div>
         <div className="inputs">
-          <FaEnvelope />
+          Username:
           <input
             type="text"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={profile.userName}
+            onChange={(e) =>
+              setProfile({ ...profile, userName: e.target.value })
+            }
           />
         </div>
         <div className="inputs">
-          <FaLock />
+          Profile's Description
           <input
             type="password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
+            value={profile.description}
+            onChange={(e) =>
+              setProfile({ ...profile, description: e.target.value })
+            }
           />
         </div>
       </div>
       <div className="submit-container">
-        <button onClick={signUp}>Sign Up</button>
+        <button onClick={createProfile}>Create Profile</button>
         <Link to="/Register/Login" className="btn ">
           Login
         </Link>
@@ -68,4 +71,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SetUpProfile;

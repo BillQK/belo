@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import EndOfFeed from "./EndOfFeed/EndOfFeed";
 import Post from "../../components/Post/Post";
-import * as client from "../../Services/client";
+import * as client from "../../Services/postsClient";
 import "./Feed.css";
 
 const Feed = ({ onPostClicked }) => {
