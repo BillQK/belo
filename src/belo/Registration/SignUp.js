@@ -11,7 +11,7 @@ const SignUp = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
-    username: "",
+    userName: "",
     email: "",
     password: "",
   });
@@ -37,8 +37,8 @@ const SignUp = () => {
           <FaUser />
           <input
             type="text"
-            value={user.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
+            value={user.userName}
+            onChange={(e) => setUser({ ...user, userName: e.target.value })}
           />
         </div>
         <div className="inputs">

@@ -11,7 +11,7 @@ import { setCurrentUser } from "../User/userReducer";
 const Login = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState({
-    username: "",
+    userName: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ const Login = () => {
       <h1>Signin</h1>
       <input
         type="text"
-        value={user.username}
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
+        value={user.userName}
+        onChange={(e) => setUser({ ...user, userName: e.target.value })}
       />
       <input
         type="password"
