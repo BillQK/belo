@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import db from "../Database/index";
-const initialState = db.profile;
+
+const initialState = {
+  currentProfile: null,
+};
+
 const userProfileSlice = createSlice({
   name: "userProfile",
   initialState,

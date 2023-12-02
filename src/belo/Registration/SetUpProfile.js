@@ -4,10 +4,12 @@ import { useNavigate } from "react-router";
 import * as profileClient from "../Services/profilesClient";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { updateUserProfile } from "../Profile/ProfileReducer";
+import { useDispatch } from "react-redux";
 const SetUpProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
-  console.log(currentUser);
+  const dispatch = useDispatch();
   const [profile, setProfile] = useState({
     userId: currentUser._id,
     userName: "",
@@ -18,6 +20,7 @@ const SetUpProfile = () => {
   const createProfile = async () => {
     try {
       const profileDetails = await profileClient.createProfile(profile);
+      dispatch(updateUserProfile(profileDetails));
       navigate("/Dashboard/feed");
     } catch (error) {
       setError(error);

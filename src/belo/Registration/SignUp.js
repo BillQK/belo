@@ -4,11 +4,10 @@ import "./index.css";
 import { useNavigate } from "react-router";
 import * as userClient from "../Services/userClient";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import { setCurrentUser } from "../User/userReducer";
 import { useDispatch } from "react-redux";
 const SignUp = () => {
-  const { currentUser } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
   const [user, setUser] = useState({
     userName: "",

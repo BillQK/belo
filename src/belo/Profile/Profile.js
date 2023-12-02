@@ -18,10 +18,11 @@ const Profile = ({ onPostClicked }) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const profileData = {
-      name: formData.get("name"),
+      displayName: formData.get("displayName"),
       description: formData.get("description"),
       // include other fields as necessary
     };
+    
     dispatch(updateUserProfile(profileData));
     setIsEditing(false);
   };
@@ -42,17 +43,23 @@ const Profile = ({ onPostClicked }) => {
         <Button text={<FaCog />} type="setting" />
       </div>
       <div className="user-info">
-        <h1> {userProfile.name}</h1>
-        <h2> {userProfile.username}</h2>
+        <h1> {userProfile.displayName}</h1>
+        <h2> {userProfile.userName}</h2>
       </div>
       <div className="user-stat">
         <h3 className="user-stat-item">
-          <span className="user-stat-number"> {userProfile.followers} </span>
+          <span className="user-stat-number">
+            {" "}
+            {userProfile.followerCount}{" "}
+          </span>
           <span className="user-stat-category">followers</span>
         </h3>
 
         <h3 className="user-stat-item">
-          <span className="user-stat-number"> {userProfile.following} </span>
+          <span className="user-stat-number">
+            {" "}
+            {userProfile.followingCount}{" "}
+          </span>
           <span className="user-stat-category">following</span>
         </h3>
         <h3 className="user-stat-item">
@@ -108,13 +115,13 @@ const Profile = ({ onPostClicked }) => {
             />
           </label>
           <div className="edit-body">
-            <label for="name">Display Name </label>
+            <label for="displayName">Display Name </label>
             <input
-              id="name"
-              name="name"
+              id="displayName"
+              name="displayName"
               type="text"
               placeholder="Name"
-              defaultValue={userProfile.name}
+              defaultValue={userProfile.displayName}
             />
             <label for="description">Description</label>
             <textarea
