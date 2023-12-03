@@ -30,3 +30,7 @@ export const updateUser = async (userId, user) => {
   const response = await request.put(`${USERS_API}/${userId}`, user);
   return response.data;
 };
+export const findAllUsers = async () => {
+  const response = await request.get(USERS_API);
+  return response.data;
+};

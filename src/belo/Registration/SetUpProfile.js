@@ -26,6 +26,10 @@ const SetUpProfile = () => {
       setError(error);
     }
   };
+
+  if (error) {
+    // navigate home
+  }
   return (
     <div className="container">
       <div className="header">
@@ -56,7 +60,7 @@ const SetUpProfile = () => {
         <div className="inputs">
           Profile's Description
           <input
-            type="password"
+            type="text"
             value={profile.description}
             onChange={(e) =>
               setProfile({ ...profile, description: e.target.value })

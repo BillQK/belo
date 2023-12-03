@@ -1,16 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation hook
-import db from "../Database/index";
+
 import User from "./Search/User/User";
 import "./Search.css";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
-
-const suggestedUsers = db.users;
+import * as profileClient from "../Services/profilesClient";
+import * as userClient from "../Services/userClient";
 
 const Search = () => {
+  const [profiles, setUsers] = useState([]);
+  const [currentUser, setUser] = useState(null);
+  const [error, setError] = useState(null);
   const location = useLocation(); // Initialize useLocation hook to get access to location object
   const searchParams = new URLSearchParams(location.search);
   const query = searchParams.get("q"); // Get the value of the 'q' query parameter
+
+  const fetchUser = async () => {
+    try {
+      const user = await userClient.account();
+      setUser(user);
+      fetchUsers(user._id);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const fetchUsers = async (userId) => {
+    const profiles = await profileClient.findAllProfile();
+    setUsers(profiles.filter((profile) => profile.userId !== userId));
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div className="search">
@@ -24,8 +46,8 @@ const Search = () => {
         // If there's no query parameter 'q', show suggested follows
         <div>
           <h1 id="suggestedFollow">Suggested Follows</h1>
-          {suggestedUsers.map((user, index) => (
-            <User key={index} user={user} />
+          {profiles.map((user, index) => (
+            <User key={index} user={user} currentUser={currentUser} />
           ))}
         </div>
       )}

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import db from "../Database/index";
 
 const initialState = {
   currentProfile: null,
