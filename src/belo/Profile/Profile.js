@@ -22,12 +22,38 @@ const Profile = ({ onPostClicked }) => {
   const [coverImageUUID, setCoverImageUUID] = useState(null);
   const [avatarImageUUID, setAvatarImageUUID] = useState(null);
   const [error, setError] = useState(null);
+  const [isUploading, setisUploading] = useState(false);
 
+  const handleImageChange = async (
+    e,
+    setImageFunction,
+    setImageUUIDFunction
+  ) => {
+    setisUploading(true);
+    try {
+      setImageFunction(URL.createObjectURL(e.target.files[0]));
+      const UUID = await storageClient.uploadImage(e.target.files[0]);
+      setImageUUIDFunction(UUID.public_id);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    } finally {
+      setisUploading(false);
+    }
+  };
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
   // Add handler for cover image file change
   const handleCoverImageChange = async (e) => {
+    setisUploading(true);
     setcoverImage(URL.createObjectURL(e.target.files[0]));
-    const UUID = await storageClient.uploadImage(e.target.files[0]);
-    setCoverImageUUID(UUID.public_id);
+    try {
+      const UUID = await storageClient.uploadImage(e.target.files[0]);
+      setCoverImageUUID(UUID.public_id);
+      await sleep(2000);
+    } finally {
+      setisUploading(false);
+    }
   };
   // Add handler for avatar image file change
   const handleAvatarImageChange = async (e) => {
@@ -152,7 +178,9 @@ const Profile = ({ onPostClicked }) => {
               name="cover"
               type="file"
               accept="image/png, image/jpeg"
-              onChange={handleCoverImageChange}
+              onChange={(e) =>
+                handleImageChange(e, setcoverImage, setCoverImageUUID)
+              }
               style={{ display: "none" }}
             />
           </label>
@@ -168,7 +196,9 @@ const Profile = ({ onPostClicked }) => {
               name="avatar"
               type="file"
               accept="image/png, image/jpeg"
-              onChange={handleAvatarImageChange}
+              onChange={(e) =>
+                handleImageChange(e, setavatarImage, setAvatarImageUUID)
+              }
               style={{ display: "none" }}
             />
           </label>
@@ -191,7 +221,13 @@ const Profile = ({ onPostClicked }) => {
               cols="50"
             ></textarea>
 
-            <button className="my-3 save-button" type="submit">
+            <button
+              className={`my-3 ${
+                isUploading ? "save-button-disabled" : "save-button"
+              }`}
+              type="submit"
+              disabled={isUploading}
+            >
               Save Changes
             </button>
             <button

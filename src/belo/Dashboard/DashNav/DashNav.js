@@ -65,11 +65,13 @@ const DashNav = () => {
             Profile
           </button>
         </li>
+        <li>
+          <button onClick={openEditModal}>
+            <FiEdit3 />
+            New Post
+          </button>
+        </li>
       </ul>
-      <button onClick={openEditModal}>
-        <FiEdit3 />
-        Create New Post
-      </button>
 
       <Modal show={isCreating} onClose={closeEditModal}>
         <form onSubmit={handleSave}>

@@ -151,6 +151,32 @@ textarea {
   border: 1px solid #6476dc;
 }
 
+.save-button-disabled {
+  margin-top: 50px !important;
+  color: grey;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: medium;
+  border: 1px solid #6476dc;
+  outline-color: grey;
+}
+
+.save-button-disabled:hover {
+  margin-top: 50px !important;
+  color: grey;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: medium;
+  border: 1px solid #6476dc;
+  outline-color: grey;
+}
+
 .cancel-button {
   background-color: #6476dc; /* Bootstrap's secondary button color */
   color: white;
