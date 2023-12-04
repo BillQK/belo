@@ -35,21 +35,17 @@ const Post = ({ post, onPostClicked }) => {
         </div>
       </div>
       <p>{post.description}</p>
-      <div className="music-body d-flex">
-        <img
-          src={post.musicUrl}
-          alt="Music"
-          className="music-image"
-          onClick={handleClick}
-        />
-        <div className="post-body p-2">
-          <h2>{post.songTitle}</h2>
-          <h3>{post.artistName}</h3>
-          <div className="music-player">
-            <MusicPlayer />
-          </div>
-        </div>
-      </div>
+      <iframe
+        style={{ borderRadius: "12px" }}
+        src="https://open.spotify.com/embed/track/4bmuGIHRJYMjL02yXZeoCd?utm_source=generator"
+        width="100%"
+        height="152"
+        frameBorder="0"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+      
 
       <div className="post-stat p-2">
         <span onClick={toggleLike}>

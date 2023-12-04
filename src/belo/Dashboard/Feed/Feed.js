@@ -18,6 +18,7 @@ const Feed = ({ onPostClicked }) => {
       {posts.map((post, index) => (
         <Post key={index} post={post} onPostClicked={onPostClicked} />
       ))}
+      
       <EndOfFeed />
     </div>
   );
