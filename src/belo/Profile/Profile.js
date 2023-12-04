@@ -6,6 +6,7 @@ import Modal from "../components/Modal/Modal";
 import "./Profile.css";
 import * as userClient from "../Services/userClient";
 import * as profileClient from "../Services/profilesClient";
+import * as storageClient from "../Services/storageClient";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
@@ -16,8 +17,24 @@ const Profile = ({ onPostClicked }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
   const [user, setUser] = useState(null);
+  const [coverImage, setcoverImage] = useState(null);
+  const [avatarImage, setavatarImage] = useState(null);
+  const [coverImageUUID, setCoverImageUUID] = useState(null);
+  const [avatarImageUUID, setAvatarImageUUID] = useState(null);
   const [error, setError] = useState(null);
 
+  // Add handler for cover image file change
+  const handleCoverImageChange = async (e) => {
+    setcoverImage(URL.createObjectURL(e.target.files[0]));
+    const UUID = await storageClient.uploadImage(e.target.files[0]);
+    setCoverImageUUID(UUID.public_id);
+  };
+  // Add handler for avatar image file change
+  const handleAvatarImageChange = async (e) => {
+    setavatarImage(URL.createObjectURL(e.target.files[0]));
+    const UUID = await storageClient.uploadImage(e.target.files[0]);
+    setAvatarImageUUID(UUID.public_id);
+  };
   const handleSave = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -25,6 +42,13 @@ const Profile = ({ onPostClicked }) => {
       displayName: formData.get("displayName"),
       description: formData.get("description"),
     };
+
+    if (avatarImageUUID) {
+      profileData.avatar = avatarImageUUID;
+    }
+    if (coverImageUUID) {
+      profileData.coverImage = coverImageUUID;
+    }
     try {
       const status = await profileClient.updateProfileByUserId(
         user._id,
@@ -51,6 +75,8 @@ const Profile = ({ onPostClicked }) => {
 
   const fetchProfile = async (userId) => {
     const profile = await profileClient.getProfileByUserID(userId);
+    setavatarImage(profile.avatar);
+    setcoverImage(profile.coverImage);
     setProfile(profile);
   };
   const fetchUser = async () => {
@@ -117,7 +143,7 @@ const Profile = ({ onPostClicked }) => {
         <form onSubmit={handleSave}>
           <label className="cover-image-preview">
             <img
-              src={profile.coverImage || "/img/default-cover.png"}
+              src={coverImage || coverImageUUID}
               alt="Cover"
               className="cover-image-preview"
             />
@@ -126,13 +152,14 @@ const Profile = ({ onPostClicked }) => {
               name="cover"
               type="file"
               accept="image/png, image/jpeg"
+              onChange={handleCoverImageChange}
               style={{ display: "none" }}
             />
           </label>
 
           <label>
             <img
-              src={profile.avatar || "/img/default-avatar.png"}
+              src={avatarImage || avatarImageUUID}
               alt="Avatar"
               className="avatar-image-preview"
             />
@@ -141,6 +168,7 @@ const Profile = ({ onPostClicked }) => {
               name="avatar"
               type="file"
               accept="image/png, image/jpeg"
+              onChange={handleAvatarImageChange}
               style={{ display: "none" }}
             />
           </label>

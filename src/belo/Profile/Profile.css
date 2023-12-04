@@ -100,6 +100,8 @@
   margin-left: 10px;
   opacity: 1;
   transition: opacity 0.5s ease-out;
+  height: 100px;
+  object-fit: cover;
   /* border: 2px solid #ffffff; */
 }
 
