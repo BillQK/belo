@@ -40,27 +40,7 @@ const Profile = ({ onPostClicked }) => {
       setisUploading(false);
     }
   };
-  function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  }
-  // Add handler for cover image file change
-  const handleCoverImageChange = async (e) => {
-    setisUploading(true);
-    setcoverImage(URL.createObjectURL(e.target.files[0]));
-    try {
-      const UUID = await storageClient.uploadImage(e.target.files[0]);
-      setCoverImageUUID(UUID.public_id);
-      await sleep(2000);
-    } finally {
-      setisUploading(false);
-    }
-  };
-  // Add handler for avatar image file change
-  const handleAvatarImageChange = async (e) => {
-    setavatarImage(URL.createObjectURL(e.target.files[0]));
-    const UUID = await storageClient.uploadImage(e.target.files[0]);
-    setAvatarImageUUID(UUID.public_id);
-  };
+
   const handleSave = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -97,8 +77,11 @@ const Profile = ({ onPostClicked }) => {
   const openEditModal = () => setIsEditing(true);
 
   // Function to close the modal
-  const closeEditModal = () => setIsEditing(false);
-
+  const closeEditModal = () => {
+    setavatarImage(profile.avatar);
+    setcoverImage(profile.coverImage);
+    setIsEditing(false);
+  };
   const fetchProfile = async (userId) => {
     const profile = await profileClient.getProfileByUserID(userId);
     setavatarImage(profile.avatar);
