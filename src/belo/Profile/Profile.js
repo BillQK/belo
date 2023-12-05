@@ -84,42 +84,6 @@ const Profile = ({ otherUserID }) => {
     setcoverImage(profile.coverImage);
     setIsEditing(false);
   };
-  const fetchProfile = async (userId) => {
-    let profile;
-    if (otherUserID) {
-      profile = await profileClient.getProfileByUserID(otherUserID);
-    } else {
-      profile = await profileClient.getProfileByUserID(userId);
-    }
-    setavatarImage(profile.avatar);
-    setcoverImage(profile.coverImage);
-    setProfile(profile);
-  };
-  const fetchUser = async () => {
-    try {
-      const user = await userClient.account();
-      if (otherUserID) {
-        checkIfUserFollows();
-      }
-
-      setUser(user);
-      fetchProfile(user._id);
-    } catch (error) {
-      setError(error);
-    }
-  };
-
-  const checkIfUserFollows = async () => {
-    try {
-      const isFollowed = await followsClient.checkIfUserFollows(
-        user._id,
-        otherUserID
-      );
-      setIsFollowed(isFollowed);
-    } catch (error) {
-      setError(error);
-    }
-  };
 
   const toggleFollow = async () => {
     if (user) {
@@ -141,11 +105,35 @@ const Profile = ({ otherUserID }) => {
       }
     }
   };
-
   useEffect(() => {
-    fetchUser();
-  }, [otherUserID]);
+    const fetchData = async () => {
+      try {
+        const user = await userClient.account();
+        setUser(user);
+        if (otherUserID) {
+          // Fetch and set the profile based on otherUserID when available
+          const otherUser = await profileClient.getProfileByUserID(otherUserID);
+          setProfile(otherUser);
+          // Call checkIfUserFollows here
+          const isFollowed = await followsClient.checkIfUserFollows(
+            user._id,
+            otherUserID
+          );
+          setIsFollowed(isFollowed);
+        } else {
+          // Fetch and set the profile based on the user's own ID
+          const userProfile = await profileClient.getProfileByUserID(user._id);
+          setProfile(userProfile);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
 
+    fetchData(); // Call fetchData when the component initially mounts
+
+    // Now, whenever otherUserID changes, fetchData will be called again
+  }, [otherUserID]);
   return (
     <div className="profile">
       <div className="cover-Image">
@@ -156,13 +144,20 @@ const Profile = ({ otherUserID }) => {
         {otherUserID ? (
           // Render a different component or message for other user's profiles
           <>
-            <Button text="Follow" type="edit" onClick={toggleFollow} />
+            <button
+              onClick={toggleFollow}
+              className={`profile-button ${isFollowed ? "followed" : ""}`}
+            >
+              {isFollowed ? "Followed" : "Follow"}
+            </button>
             <Button text={<FiHeart />} type="setting" />
           </>
         ) : (
           // Render the "Edit Profile" button and "Cog" button for the current user's profile
           <>
-            <Button text="Edit Profile" type="edit" onClick={openEditModal} />
+            <button onClick={openEditModal} className="profile-button follow">
+              Edit Profile
+            </button>
             <Button text={<FiEdit />} type="setting" onClick={openEditModal} />
           </>
         )}
