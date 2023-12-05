@@ -11,9 +11,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
 import { FiEdit, FiHeart } from "react-icons/fi";
+import { useNavigate } from "react-router";
 
 const Profile = ({ otherUserID }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userProfile = useSelector((state) => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
@@ -109,11 +111,16 @@ const Profile = ({ otherUserID }) => {
     const fetchData = async () => {
       try {
         const user = await userClient.account();
+        if (Object.keys(user).length === 0) {
+          navigate("/Register/Login");
+          return;
+        }
         setUser(user);
         if (otherUserID) {
           // Fetch and set the profile based on otherUserID when available
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           setProfile(otherUser);
+
           // Call checkIfUserFollows here
           const isFollowed = await followsClient.checkIfUserFollows(
             user._id,
@@ -124,6 +131,8 @@ const Profile = ({ otherUserID }) => {
           // Fetch and set the profile based on the user's own ID
           const userProfile = await profileClient.getProfileByUserID(user._id);
           setProfile(userProfile);
+          setAvatarImageUUID(userProfile.avatar);
+          setCoverImageUUID(userProfile.coverImage);
         }
       } catch (error) {
         setError(error);

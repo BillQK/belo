@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation hook
+import { useLocation, useNavigate } from "react-router-dom"; // Import useLocation hook
 
 import User from "./Search/User/User";
 import "./Search.css";
@@ -8,6 +8,7 @@ import * as profileClient from "../Services/profilesClient";
 import * as userClient from "../Services/userClient";
 
 const Search = () => {
+  const navigate = useNavigate();
   const [profiles, setUsers] = useState([]);
   const [currentUser, setUser] = useState(null);
   const [error, setError] = useState(null);
@@ -18,6 +19,10 @@ const Search = () => {
   const fetchUser = async () => {
     try {
       const user = await userClient.account();
+      if (Object.keys(user).length === 0) {
+        navigate("/Register/Login");
+        return;
+      }
       setUser(user);
       fetchUsers(user._id);
     } catch (error) {
