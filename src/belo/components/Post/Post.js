@@ -11,7 +11,7 @@ import { useState } from "react";
 import { FiShare } from "react-icons/fi";
 const Post = ({ post }) => {
   const [liked, setLiked] = useState(false);
-  const [numberOfLikes, setNumberOfLikes] = useState(+post.likes);
+  const [numberOfLikes, setNumberOfLikes] = useState(+post.likesCount);
   const [bookMarked, setBookMarked] = useState(false);
 
   const toggleLike = () => {

@@ -89,41 +89,6 @@ const Profile = ({ otherUserID }) => {
     setcoverImage(profile.coverImage);
     setIsEditing(false);
   };
-  const fetchProfile = async (userId) => {
-    let profile;
-    if (otherUserID) {
-      profile = await profileClient.getProfileByUserID(otherUserID);
-    } else {
-      profile = await profileClient.getProfileByUserID(userId);
-    }
-    setavatarImage(profile.avatar);
-    setcoverImage(profile.coverImage);
-    setProfile(profile);
-  };
-
-  const fetchPosts = async ({ userId }) => {
-    const user = await userClient.account();
-    let posts;
-
-    if (otherUserID) {
-      posts = await postsClient.getPostsbyUserId(otherUserID);
-    } else {
-      posts = await postsClient.getPostsbyUserId(user._id);
-    }
-    setPosts(posts);
-  };
-
-  const checkIfUserFollows = async () => {
-    try {
-      const isFollowed = await followsClient.checkIfUserFollows(
-        user._id,
-        otherUserID
-      );
-      setIsFollowed(isFollowed);
-    } catch (error) {
-      setError(error);
-    }
-  };
 
   const toggleFollow = async () => {
     if (user) {
@@ -144,7 +109,6 @@ const Profile = ({ otherUserID }) => {
         setIsFollowed(!isFollowed);
       }
     }
-    fetchProfile(user._id);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -158,7 +122,9 @@ const Profile = ({ otherUserID }) => {
         if (otherUserID) {
           // Fetch and set the profile based on otherUserID when available
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
+          const posts = await postsClient.getPostsbyUserId(otherUserID);
           setProfile(otherUser);
+          setPosts(posts);
 
           // Call checkIfUserFollows here
           const isFollowed = await followsClient.checkIfUserFollows(
@@ -169,9 +135,11 @@ const Profile = ({ otherUserID }) => {
         } else {
           // Fetch and set the profile based on the user's own ID
           const userProfile = await profileClient.getProfileByUserID(user._id);
+          const posts = await postsClient.getPostsbyUserId(user._id);
           setProfile(userProfile);
           setAvatarImageUUID(userProfile.avatar);
           setCoverImageUUID(userProfile.coverImage);
+          setPosts(posts);
         }
       } catch (error) {
         setError(error);
@@ -179,7 +147,6 @@ const Profile = ({ otherUserID }) => {
     };
 
     fetchData(); // Call fetchData when the component initially mounts
-    fetchPosts(user._id);
 
     // Now, whenever otherUserID changes, fetchData will be called again
   }, [otherUserID]);
@@ -237,8 +204,8 @@ const Profile = ({ otherUserID }) => {
       </div>
       <hr />
       <div className="user-posts">
-        {profile.posts &&
-          profile.posts.map((post, index) => {
+        {posts &&
+          posts.map((post, index) => {
             return <Post key={index} post={post} />;
           })}
       </div>
