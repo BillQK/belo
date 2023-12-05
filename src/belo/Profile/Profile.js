@@ -156,6 +156,7 @@ const Profile = ({ otherUserID }) => {
         }
         setUser(user);
         if (otherUserID) {
+          fetchPosts(otherUserID);
           // Fetch and set the profile based on otherUserID when available
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           setProfile(otherUser);
@@ -167,6 +168,7 @@ const Profile = ({ otherUserID }) => {
           );
           setIsFollowed(isFollowed);
         } else {
+          fetchPosts(user._id);
           // Fetch and set the profile based on the user's own ID
           const userProfile = await profileClient.getProfileByUserID(user._id);
           setProfile(userProfile);
@@ -179,7 +181,6 @@ const Profile = ({ otherUserID }) => {
     };
 
     fetchData(); // Call fetchData when the component initially mounts
-    fetchPosts(user._id);
 
     // Now, whenever otherUserID changes, fetchData will be called again
   }, [otherUserID]);
