@@ -7,16 +7,19 @@ import * as userClient from "../Services/userClient";
 import * as profileClient from "../Services/profilesClient";
 import * as storageClient from "../Services/storageClient";
 import * as followsClient from "../Services/followerClient";
+import * as postsClient from "../Services/postsClient";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
 import { FiEdit, FiHeart } from "react-icons/fi";
+import axios from "axios";
 
 const Profile = ({ otherUserID }) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
+  const [posts, setPosts] = useState(null);
   const [user, setUser] = useState(null);
   const [coverImage, setcoverImage] = useState(null);
   const [avatarImage, setavatarImage] = useState(null);
@@ -104,9 +107,22 @@ const Profile = ({ otherUserID }) => {
 
       setUser(user);
       fetchProfile(user._id);
+      fetchPosts(user._id);
     } catch (error) {
       setError(error);
     }
+  };
+
+  const fetchPosts = async ({ userId }) => {
+    const user = await userClient.account();
+    let posts;
+
+    if (otherUserID) {
+      posts = await postsClient.getPostsbyUserId(otherUserID);
+    } else {
+      posts = await postsClient.getPostsbyUserId(user._id);
+    }
+    setPosts(posts);
   };
 
   const checkIfUserFollows = async () => {
@@ -140,6 +156,7 @@ const Profile = ({ otherUserID }) => {
         setIsFollowed(!isFollowed);
       }
     }
+    fetchProfile(user._id);
   };
 
   useEffect(() => {

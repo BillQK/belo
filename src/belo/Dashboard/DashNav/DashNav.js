@@ -10,25 +10,50 @@ import { useNavigate } from "react-router-dom";
 import "./DashNav.css";
 import { useState, useEffect } from "react";
 import Modal from "../../components/Modal/Modal";
+import axios from "axios";
+import * as postsClient from "../../Services/postsClient";
+import * as userClient from "../../Services/userClient";
 
 const DashNav = () => {
   const navigate = useNavigate(); // useNavigate hook for navigation
+
+  const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isCreating, setIsCreating] = useState(false);
+
+  const [description, setDescription] = useState("Something Meaningful");
+
+  const [error, setError] = useState(null);
 
   // Function to close the modal
   const closeEditModal = () => setIsCreating(false);
   // Function to open the modal
   const openEditModal = () => setIsCreating(true);
 
-  const handleSave = (event) => {
+  const handleSave = async (event) => {
     event.preventDefault();
-  };
+    let user = await userClient.account();
+    setUser(user);
+    console.log(user._id);
 
+    await postsClient.createPost(user._id, description);
+    closeEditModal();
+  };
   const handleButtonClick = (path) => {
     navigate(`/Dashboard${path}`); // Adjusted path for parameterized routing
   };
+
+  const fetchUser = async () => {
+    try {
+      const user = await userClient.account();
+
+      setUser(user);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
   return (
     <nav className="dashboard-nav">
       <ul>
@@ -110,7 +135,8 @@ const DashNav = () => {
               id="description"
               name="description"
               placeholder="Start typing your post..."
-              defaultValue="Something Meaningful"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
               rows="4"
               cols="50"
             ></textarea>
