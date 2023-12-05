@@ -1,0 +1,75 @@
+.login {
+  background-color: #161618;
+  margin: 100px;
+  min-width: 600px;
+  padding: 50px;
+  display: inline-flex;
+  justify-content: center;
+  table-layout: fixed;
+  flex-direction: column;
+}
+
+.login h3,
+h2,
+h4,
+label,
+a {
+  color: white;
+}
+.login > h2,
+.login > h3 {
+  text-align: center;
+}
+
+.login h3 {
+  color: rgb(148, 147, 147);
+  font-weight: 500;
+}
+
+.login h4 {
+  padding-top: 5px;
+  color: rgb(148, 147, 147);
+}
+.login label {
+  font-size: small;
+  font-weight: 800;
+  color: rgb(148, 147, 147);
+  padding-top: 10px;
+}
+
+.login a {
+  font-size: large;
+  color: #5292d6;
+  text-decoration: none;
+  font-weight: 200;
+  font-size: small;
+  margin-top: 5px;
+}
+
+.login button {
+  color: white;
+  background-color: #6476dc;
+  font-weight: 400;
+  height: fit-content;
+  font-size: 25px;
+  border-radius: 5px;
+  padding-bottom: 2px;
+  padding-top: 2px;
+  margin-bottom: 5px;
+}
+
+.login input {
+  height: fit-content;
+  font-size: 25px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.input-box {
+  display: inline-flex;
+  justify-content: center;
+  table-layout: fixed;
+  flex-direction: column;
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
