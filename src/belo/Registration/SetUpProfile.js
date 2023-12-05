@@ -31,49 +31,39 @@ const SetUpProfile = () => {
     // navigate home
   }
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Sign Up</div>
-        <div className="underLine"></div>
+    <div className="login">
+      <h2>Creating Profile</h2>
+      <h3>Let's create a profile for you!</h3>
+      <div className="input-box">
+        <label for="username">USERNAME *</label>
+        <input
+          id="username"
+          type="text"
+          value={profile.userName}
+          onChange={(e) => setProfile({ ...profile, userName: e.target.value })}
+        />
+        <label for="displayname">DISPLAY NAME *</label>
+        <input
+          id="displayname"
+          type="text"
+          value={profile.displayName}
+          onChange={(e) =>
+            setProfile({ ...profile, displayName: e.target.value })
+          }
+        />
+        <label for="description">PROFILE'S DESCRIPTION *</label>
+        <input
+          id="description"
+          type="text"
+          value={profile.description}
+          onChange={(e) =>
+            setProfile({ ...profile, description: e.target.value })
+          }
+        />
       </div>
-      <div className="inputs">
-        <div className="inputs">
-          Display Name
-          <input
-            type="text"
-            value={profile.displayName}
-            onChange={(e) =>
-              setProfile({ ...profile, displayName: e.target.value })
-            }
-          />
-        </div>
-        <div className="inputs">
-          Username:
-          <input
-            type="text"
-            value={profile.userName}
-            onChange={(e) =>
-              setProfile({ ...profile, userName: e.target.value })
-            }
-          />
-        </div>
-        <div className="inputs">
-          Profile's Description
-          <input
-            type="text"
-            value={profile.description}
-            onChange={(e) =>
-              setProfile({ ...profile, description: e.target.value })
-            }
-          />
-        </div>
-      </div>
-      <div className="submit-container">
-        <button onClick={createProfile}>Create Profile</button>
-        <Link to="/Register/Login" className="btn ">
-          Login
-        </Link>
-      </div>
+      <button onClick={createProfile}> Create Profile </button>
+
+      <Link to="/Register/Login">Already have an account?</Link>
     </div>
   );
 };

@@ -26,43 +26,35 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="container">
-      <div className="header">
-        <div className="text">Sign Up</div>
-        <div className="underLine"></div>
+    <div className="login">
+      <h2>Creating Account</h2>
+      <h3>Let's create an account for you!</h3>
+      <div className="input-box">
+        <label for="username">USERNAME *</label>
+        <input
+          id="username"
+          type="text"
+          value={user.userName}
+          onChange={(e) => setUser({ ...user, userName: e.target.value })}
+        />
+        <label for="email">EMAIL *</label>
+        <input
+          id="email"
+          type="text"
+          value={user.email}
+          onChange={(e) => setUser({ ...user, email: e.target.value })}
+        />
+        <label for="password">PASSWORD *</label>
+        <input
+          id="password"
+          type="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
       </div>
-      <div className="inputs">
-        <div className="inputs">
-          <FaUser />
-          <input
-            type="text"
-            value={user.userName}
-            onChange={(e) => setUser({ ...user, userName: e.target.value })}
-          />
-        </div>
-        <div className="inputs">
-          <FaEnvelope />
-          <input
-            type="text"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-          />
-        </div>
-        <div className="inputs">
-          <FaLock />
-          <input
-            type="password"
-            value={user.password}
-            onChange={(e) => setUser({ ...user, password: e.target.value })}
-          />
-        </div>
-      </div>
-      <div className="submit-container">
-        <button onClick={signUp}>Sign Up</button>
-        <Link to="/Register/Login" className="btn ">
-          Login
-        </Link>
-      </div>
+      <button onClick={signUp}> Create Account </button>
+
+      <Link to="/Register/Login">Already have an account?</Link>
     </div>
   );
 };

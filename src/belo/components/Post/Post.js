@@ -1,5 +1,5 @@
 import "./Post.css";
-import MusicPlayer from "../MusicPlayer/Musicplayer";
+
 import {
   FaHeart,
   FaBookmark,
@@ -9,14 +9,11 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 import { FiShare } from "react-icons/fi";
-const Post = ({ post, onPostClicked }) => {
+const Post = ({ post }) => {
   const [liked, setLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(+post.likes);
   const [bookMarked, setBookMarked] = useState(false);
-  const handleClick = () => {
-    console.log("Clicked");
-    // onPostClicked(post.song);
-  };
+
   const toggleLike = () => {
     setLiked(!liked);
     liked
@@ -45,7 +42,6 @@ const Post = ({ post, onPostClicked }) => {
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
         loading="lazy"
       ></iframe>
-      
 
       <div className="post-stat p-2">
         <span onClick={toggleLike}>

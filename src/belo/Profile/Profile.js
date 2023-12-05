@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Button from "../Home/Button/Button";
-import { FaCog } from "react-icons/fa";
 import Post from "../components/Post/Post";
 import Modal from "../components/Modal/Modal";
 import "./Profile.css";
 import * as userClient from "../Services/userClient";
 import * as profileClient from "../Services/profilesClient";
 import * as storageClient from "../Services/storageClient";
+import * as followsClient from "../Services/followerClient";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
+import { FiEdit, FiHeart } from "react-icons/fi";
 
-const Profile = ({ onPostClicked }) => {
+const Profile = ({ otherUserID }) => {
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
@@ -23,6 +24,7 @@ const Profile = ({ onPostClicked }) => {
   const [avatarImageUUID, setAvatarImageUUID] = useState(null);
   const [error, setError] = useState(null);
   const [isUploading, setisUploading] = useState(false);
+  const [isFollowed, setIsFollowed] = useState(false);
 
   const handleImageChange = async (
     e,
@@ -83,7 +85,12 @@ const Profile = ({ onPostClicked }) => {
     setIsEditing(false);
   };
   const fetchProfile = async (userId) => {
-    const profile = await profileClient.getProfileByUserID(userId);
+    let profile;
+    if (otherUserID) {
+      profile = await profileClient.getProfileByUserID(otherUserID);
+    } else {
+      profile = await profileClient.getProfileByUserID(userId);
+    }
     setavatarImage(profile.avatar);
     setcoverImage(profile.coverImage);
     setProfile(profile);
@@ -91,6 +98,10 @@ const Profile = ({ onPostClicked }) => {
   const fetchUser = async () => {
     try {
       const user = await userClient.account();
+      if (otherUserID) {
+        checkIfUserFollows();
+      }
+
       setUser(user);
       fetchProfile(user._id);
     } catch (error) {
@@ -98,13 +109,42 @@ const Profile = ({ onPostClicked }) => {
     }
   };
 
+  const checkIfUserFollows = async () => {
+    try {
+      const isFollowed = await followsClient.checkIfUserFollows(
+        user._id,
+        otherUserID
+      );
+      setIsFollowed(isFollowed);
+    } catch (error) {
+      setError(error);
+    }
+  };
+
+  const toggleFollow = async () => {
+    if (user) {
+      let status;
+      if (isFollowed) {
+        status = await followsClient.deleteUserFollowsUser(
+          user._id,
+          otherUserID
+        );
+      } else {
+        status = await followsClient.createUserFollowsUser(
+          user._id,
+          otherUserID
+        );
+      }
+
+      if (status === 200) {
+        setIsFollowed(!isFollowed);
+      }
+    }
+  };
+
   useEffect(() => {
     fetchUser();
-  }, []);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  }, [otherUserID]);
 
   return (
     <div className="profile">
@@ -113,38 +153,49 @@ const Profile = ({ onPostClicked }) => {
       </div>
       <div className="user-header">
         <img src={profile.avatar} alt="Avatar" className="avatar" />
-        <Button text="Edit Profile" type="edit" onClick={openEditModal} />
-        <Button text={<FaCog />} type="setting" />
+        {otherUserID ? (
+          // Render a different component or message for other user's profiles
+          <>
+            <Button text="Follow" type="edit" onClick={toggleFollow} />
+            <Button text={<FiHeart />} type="setting" />
+          </>
+        ) : (
+          // Render the "Edit Profile" button and "Cog" button for the current user's profile
+          <>
+            <Button text="Edit Profile" type="edit" onClick={openEditModal} />
+            <Button text={<FiEdit />} type="setting" onClick={openEditModal} />
+          </>
+        )}
       </div>
-      <div className="user-info">
-        <h1> {profile.displayName}</h1>
-        <h2> {profile.userName}</h2>
-      </div>
-      <div className="user-stat">
-        <h3 className="user-stat-item">
-          <span className="user-stat-number"> {profile.followerCount} </span>
-          <span className="user-stat-category">followers</span>
-        </h3>
+      <div className="user-profile-body">
+        <div className="user-info">
+          <h1> {profile.displayName}</h1>
+          <h2> {profile.userName}</h2>
+        </div>
+        <div className="user-stat">
+          <h3 className="user-stat-item">
+            <span className="user-stat-number"> {profile.followerCount} </span>
+            <span className="user-stat-category">followers</span>
+          </h3>
 
-        <h3 className="user-stat-item">
-          <span className="user-stat-number"> {profile.followingCount} </span>
-          <span className="user-stat-category">following</span>
-        </h3>
-        <h3 className="user-stat-item">
-          <span className="user-stat-number"> {profile.numberOfPosts} </span>
-          <span className="user-stat-category">posts</span>
-        </h3>
-      </div>
-      <div className="user-description">
-        <p> {profile.description}</p>
+          <h3 className="user-stat-item">
+            <span className="user-stat-number"> {profile.followingCount} </span>
+            <span className="user-stat-category">following</span>
+          </h3>
+          <h3 className="user-stat-item">
+            <span className="user-stat-number"> {profile.numberOfPosts} </span>
+            <span className="user-stat-category">posts</span>
+          </h3>
+        </div>
+        <div className="user-description">
+          <p> {profile.description}</p>
+        </div>
       </div>
       <hr />
       <div className="user-posts">
         {profile.posts &&
           profile.posts.map((post, index) => {
-            return (
-              <Post key={index} post={post} onPostClicked={onPostClicked} />
-            );
+            return <Post key={index} post={post} />;
           })}
       </div>
       <EndOfFeed />

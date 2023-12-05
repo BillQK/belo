@@ -5,24 +5,24 @@ import { useParams } from "react-router";
 import Profile from "../Profile/Profile";
 import Search from "../Search/Search";
 import DashNav from "./DashNav/DashNav";
-import { useState } from "react";
 
 const DashBoard = () => {
-  const { param } = useParams();
-  const [currentSong, setCurrentSong] = useState(null); // Add state to keep track of the current song
+  const { param, userId } = useParams();
 
-  const handlePostClicked = (song) => {
-    setCurrentSong(song); // Function to update the current song
-  };
   const renderComponent = () => {
-    switch (param) {
-      case "profile":
-        return <Profile onPostClicked={handlePostClicked} />;
-      case "search":
-        return <Search />;
-      default:
-        // Return null or a default component
-        return <Feed onPostClicked={handlePostClicked} />;
+    if (param === "profile") {
+      if (userId) {
+        // Render the Profile component with the specified userId
+        return <Profile otherUserID={userId} />;
+      } else {
+        // Render the user's own profile (assuming user is authenticated)
+        return <Profile otherUserID={undefined} />;
+      }
+    } else if (param === "search") {
+      return <Search />;
+    } else {
+      // Return null or a default component
+      return <Feed />;
     }
   };
   return (
@@ -36,7 +36,7 @@ const DashBoard = () => {
           <div className="col-12 col-lg-6">{renderComponent()}</div>
 
           <div className="col-sm-3 d-none d-lg-block">
-            <Sidebar currentSong={currentSong} />
+            <Sidebar />
           </div>
         </div>
       </div>

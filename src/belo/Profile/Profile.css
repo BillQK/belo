@@ -38,39 +38,34 @@
 .user-info h1 {
   font-size: var(--text-lg) !important;
   font-weight: 550;
-  margin-top: -20px;
-  margin-left: 10px;
+
   color: #6476dc;
 }
 
 .user-info h2 {
   font-size: var(--text-xs) !important;
   font-weight: bolder;
-  margin-left: 10px;
-  margin-top: -4px;
+
   color: white;
 }
 
 .user-stat {
   display: flex;
-  margin-left: 7px;
+
   color: white;
 }
 .user-stat span {
   margin: 0px;
   font-weight: bolder;
 }
-.user-stat h3 {
-  margin: 5px;
-}
 
 .user-stat .user-stat-category {
   font-weight: lighter;
   color: rgb(248, 246, 246);
+  margin-right: 10px;
 }
 
 .user-description p {
-  margin-left: 10px;
   font-size: var(--text-xs);
   color: white;
 }
@@ -198,4 +193,9 @@ textarea {
 
 .save-button:hover {
   background-color: black; /* A darker shade of primary color */
+}
+
+.user-body-profile {
+  display: flex;
+  flex-direction: column;
 }

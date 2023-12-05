@@ -2,15 +2,22 @@
   border: 1px solid #6476dc;
 }
 .card-img {
+  cursor: pointer;
   width: 15%;
+  min-width: 100px;
 }
 .card-img img {
   width: 65%;
+  max-width: 60px;
   margin: 20px;
   border-radius: 100px;
 }
 .card-body {
+  cursor: pointer;
   margin-top: 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .card-body h1 {
   color: white;
@@ -21,11 +28,9 @@
   font-size: medium !important;
   font-weight: lighter;
 }
-.card-description p {
+.card-description {
   color: white;
   font-size: medium !important;
-  padding-left: 98px;
-  margin-top: -30px;
 }
 .card-button button {
   border: solid 1px black;

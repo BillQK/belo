@@ -1,10 +1,12 @@
 import "./User.css";
 import { useEffect, useState } from "react";
 import * as followsClient from "../../../Services/followerClient";
-
+import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 const User = ({ user, currentUser }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const toggleFollow = async () => {
     if (currentUser) {
@@ -39,25 +41,28 @@ const User = ({ user, currentUser }) => {
     }
   };
 
+  const handleProfileClick = () => {
+    navigate(`/Dashboard/profile/${user.userId}`);
+  };
+
   useEffect(() => {
     checkFollowStatus();
   }, []);
 
   return (
     <div className="user-card">
-      <div
-        className=" d-flex 
-justify-content-between"
-      >
-        <div className="card-img">
-          <img src={user.avatar} alt="avatar" className="avatar-image" />
+      <div className="d-flex justify-content-between">
+        <div className="card-img" onClick={handleProfileClick}>
+          <img src={user.avatar} alt="" className="avatar-image" />
         </div>
-        <div className="card-body">
+
+        <div className="card-body" onClick={handleProfileClick}>
           <h1>{user.displayName}</h1>
           <h3>{user.userName}</h3>
+
+          <p className="card-description">{user.description}</p>
         </div>
         <div className="card-button">
-          {/* Toggle button text based on follow status and apply styles conditionally */}
           <button
             onClick={toggleFollow}
             className={isFollowed ? "followed" : ""}
@@ -65,9 +70,6 @@ justify-content-between"
             {isFollowed ? "Followed" : "Follow"}
           </button>
         </div>
-      </div>
-      <div className="card-description">
-        <p>{user.description}</p>
       </div>
     </div>
   );

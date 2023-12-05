@@ -4,10 +4,11 @@ import Button from "../Home/Button/Button";
 import { loginEndpoint } from "../../spotify";
 import * as client from "../Services/userClient";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setCurrentUser } from "../User/userReducer";
+
 const Login = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState({
@@ -26,22 +27,33 @@ const Login = () => {
   };
   return (
     <div className="login">
-      <h1>Signin</h1>
-      <input
-        type="text"
-        value={user.userName}
-        onChange={(e) => setUser({ ...user, userName: e.target.value })}
-      />
-      <input
-        type="password"
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-      />
-      <button onClick={signIn}> Signin </button>
-      <button onClick={() => handleButtonClick("/Signup")}>Register</button>
-      <a href={loginEndpoint}>
+      <h2>Welcome back!</h2>
+      <h3>We're so excited to see you again!</h3>
+      <div className="input-box">
+        <label for="username">USERNAME *</label>
+        <input
+          id="username"
+          type="text"
+          value={user.userName}
+          onChange={(e) => setUser({ ...user, userName: e.target.value })}
+        />
+        <label for="password">PASSWORD *</label>
+        <input
+          id="password"
+          type="password"
+          value={user.password}
+          onChange={(e) => setUser({ ...user, password: e.target.value })}
+        />
+        <Link>Forgot your password?</Link>
+      </div>
+      <button onClick={signIn}> Log In </button>
+      <h4>
+        Need an account? <Link to="/Register/Signup">Register</Link>
+      </h4>
+      {/* <button onClick={() => handleButtonClick("/Signup")}>Register</button> */}
+      {/* <a href={loginEndpoint}>
         <Button text="Login" />
-      </a>
+      </a> */}
     </div>
   );
 };

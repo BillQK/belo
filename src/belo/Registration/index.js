@@ -3,7 +3,7 @@ import SetUpProfile from "./SetUpProfile";
 import SignUp from "./SignUp";
 import "./index.css";
 import { useParams } from "react-router";
-
+import "./registration.css";
 const Register = () => {
   const { param } = useParams();
 
@@ -23,9 +23,9 @@ const Register = () => {
 
   return (
     <div className="background">
-      <div className="register container">
+      <div className="register container-fluid">
         <div className="row">
-          <div className="description col-sm-7 d-none d-lg-block">
+          <div className="description col-sm-5 d-none d-lg-block">
             <h1> Belo.</h1>
             <p>
               A Social Media for music lovers where you can share melodies you
