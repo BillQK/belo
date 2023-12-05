@@ -12,10 +12,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
 import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
 import { FiEdit, FiHeart } from "react-icons/fi";
+import { useNavigate } from "react-router";
 import axios from "axios";
 
 const Profile = ({ otherUserID }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userProfile = useSelector((state) => state.userProfile);
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
@@ -98,20 +100,6 @@ const Profile = ({ otherUserID }) => {
     setcoverImage(profile.coverImage);
     setProfile(profile);
   };
-  const fetchUser = async () => {
-    try {
-      const user = await userClient.account();
-      if (otherUserID) {
-        checkIfUserFollows();
-      }
-
-      setUser(user);
-      fetchProfile(user._id);
-      fetchPosts(user._id);
-    } catch (error) {
-      setError(error);
-    }
-  };
 
   const fetchPosts = async ({ userId }) => {
     const user = await userClient.account();
@@ -158,11 +146,43 @@ const Profile = ({ otherUserID }) => {
     }
     fetchProfile(user._id);
   };
-
   useEffect(() => {
-    fetchUser();
-  }, [otherUserID]);
+    const fetchData = async () => {
+      try {
+        const user = await userClient.account();
+        if (Object.keys(user).length === 0) {
+          navigate("/Register/Login");
+          return;
+        }
+        setUser(user);
+        if (otherUserID) {
+          // Fetch and set the profile based on otherUserID when available
+          const otherUser = await profileClient.getProfileByUserID(otherUserID);
+          setProfile(otherUser);
 
+          // Call checkIfUserFollows here
+          const isFollowed = await followsClient.checkIfUserFollows(
+            user._id,
+            otherUserID
+          );
+          setIsFollowed(isFollowed);
+        } else {
+          // Fetch and set the profile based on the user's own ID
+          const userProfile = await profileClient.getProfileByUserID(user._id);
+          setProfile(userProfile);
+          setAvatarImageUUID(userProfile.avatar);
+          setCoverImageUUID(userProfile.coverImage);
+        }
+      } catch (error) {
+        setError(error);
+      }
+    };
+
+    fetchData(); // Call fetchData when the component initially mounts
+    fetchPosts(user._id);
+
+    // Now, whenever otherUserID changes, fetchData will be called again
+  }, [otherUserID]);
   return (
     <div className="profile">
       <div className="cover-Image">
@@ -173,13 +193,20 @@ const Profile = ({ otherUserID }) => {
         {otherUserID ? (
           // Render a different component or message for other user's profiles
           <>
-            <Button text="Follow" type="edit" onClick={toggleFollow} />
+            <button
+              onClick={toggleFollow}
+              className={`profile-button ${isFollowed ? "followed" : ""}`}
+            >
+              {isFollowed ? "Followed" : "Follow"}
+            </button>
             <Button text={<FiHeart />} type="setting" />
           </>
         ) : (
           // Render the "Edit Profile" button and "Cog" button for the current user's profile
           <>
-            <Button text="Edit Profile" type="edit" onClick={openEditModal} />
+            <button onClick={openEditModal} className="profile-button follow">
+              Edit Profile
+            </button>
             <Button text={<FiEdit />} type="setting" onClick={openEditModal} />
           </>
         )}
