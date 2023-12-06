@@ -120,6 +120,7 @@ const Profile = ({ otherUserID }) => {
         }
         setUser(user);
         if (otherUserID) {
+          fetchPosts(otherUserID);
           // Fetch and set the profile based on otherUserID when available
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           const posts = await postsClient.getPostsbyUserId(otherUserID);
@@ -133,6 +134,7 @@ const Profile = ({ otherUserID }) => {
           );
           setIsFollowed(isFollowed);
         } else {
+          fetchPosts(user._id);
           // Fetch and set the profile based on the user's own ID
           const userProfile = await profileClient.getProfileByUserID(user._id);
           const posts = await postsClient.getPostsbyUserId(user._id);
