@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FaTrophy } from "react-icons/fa";
+
 const request = axios.create({
   withCredentials: true,
 });
@@ -16,9 +16,8 @@ export const getPostsbyUserId = async (userId) => {
   return response.data;
 };
 
-export const createPost = async (userId, description) => {
-  const response = await request.post(`${POSTS_API}`, { userId, description });
-  const createdPost = response.data;
-  console.log("postId: " + createdPost._id);
+export const createPost = async (userId, post) => {
+  const response = await request.post(`${POSTS_API}`, { userId, post });
+
   return response.data;
 };

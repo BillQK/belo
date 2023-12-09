@@ -1,27 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import * as userClient from "../Services/userClient";
 
 const Callback = () => {
   const navigate = useNavigate();
-  const [token, setToken] = useState("");
-
-  useEffect(() => {
-    const token = window.localStorage.getItem("token");
+  const updateToken = async () => {
+    const user = await userClient.account();
     const hash = window.location.hash;
     window.location.hash = "";
-    if (!token && hash) {
+    if (hash) {
       const params = new URLSearchParams(hash.substring(1));
       const accessToken = params.get("access_token");
-      window.localStorage.setItem("token", accessToken);
-      setToken(accessToken);
-    } else {
-      setToken(token);
+      user.accesstoken = accessToken;
+      await userClient.updateUser(user._id, user); //TODO: handle error
     }
+
+    navigate("/Dashboard/feed");
+  };
+  useEffect(() => {
+    updateToken();
   }, []);
-
-  token ? navigate("/Dashboard/feed") : navigate("/Home");
-
-  return <></>;
 };
 
 export default Callback;

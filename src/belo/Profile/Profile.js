@@ -1,19 +1,25 @@
-import React, { useEffect, useState } from "react";
+// Components
 import Button from "../Home/Button/Button";
 import Post from "../components/Post/Post";
 import Modal from "../components/Modal/Modal";
+import { FiEdit, FiHeart } from "react-icons/fi";
+import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
+
+// CSS
 import "./Profile.css";
+
+// Client
 import * as userClient from "../Services/userClient";
 import * as profileClient from "../Services/profilesClient";
 import * as storageClient from "../Services/storageClient";
 import * as followsClient from "../Services/followerClient";
 import * as postsClient from "../Services/postsClient";
+
+// React function
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { updateUserProfile } from "./ProfileReducer";
-import EndOfFeed from "../Dashboard/Feed/EndOfFeed/EndOfFeed";
-import { FiEdit, FiHeart } from "react-icons/fi";
 import { useNavigate } from "react-router";
-import axios from "axios";
 
 const Profile = ({ otherUserID }) => {
   const dispatch = useDispatch();
@@ -120,12 +126,11 @@ const Profile = ({ otherUserID }) => {
         }
         setUser(user);
         if (otherUserID) {
-          fetchPosts(otherUserID);
           // Fetch and set the profile based on otherUserID when available
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           const posts = await postsClient.getPostsbyUserId(otherUserID);
           setProfile(otherUser);
-          setPosts(posts);
+          setPosts(posts.reverse());
 
           // Call checkIfUserFollows here
           const isFollowed = await followsClient.checkIfUserFollows(
@@ -134,14 +139,13 @@ const Profile = ({ otherUserID }) => {
           );
           setIsFollowed(isFollowed);
         } else {
-          fetchPosts(user._id);
           // Fetch and set the profile based on the user's own ID
           const userProfile = await profileClient.getProfileByUserID(user._id);
           const posts = await postsClient.getPostsbyUserId(user._id);
           setProfile(userProfile);
           setAvatarImageUUID(userProfile.avatar);
           setCoverImageUUID(userProfile.coverImage);
-          setPosts(posts);
+          setPosts(posts.reverse());
         }
       } catch (error) {
         setError(error);
@@ -180,10 +184,10 @@ const Profile = ({ otherUserID }) => {
           </>
         )}
       </div>
-      <div className="user-profile-body">
+      <div className="user-body-profile">
         <div className="user-info">
           <h1> {profile.displayName}</h1>
-          <h2> {profile.userName}</h2>
+          <h2> {"@" + profile.userName}</h2>
         </div>
         <div className="user-stat">
           <h3 className="user-stat-item">
@@ -208,7 +212,7 @@ const Profile = ({ otherUserID }) => {
       <div className="user-posts">
         {posts &&
           posts.map((post, index) => {
-            return <Post key={index} post={post} />;
+            return <Post key={index} post={post} userProfile={profile} />;
           })}
       </div>
       <EndOfFeed />

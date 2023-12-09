@@ -2,7 +2,9 @@
   border: 0.1rem solid #6476dc;
   /* border-radius: 25px !important ; */
   margin: 12px !important;
-  padding: 10px !important;
+  padding-bottom: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
   background-color: rgb(0, 0, 0) !important;
   white-space: nowrap;
   overflow: hidden;
@@ -31,7 +33,7 @@
 }
 
 .post .post-user p {
-  font-size: var(--text-sm);
+  font-size: 18px;
   color: white;
   margin: 1rem;
 }
@@ -50,10 +52,6 @@
   margin-bottom: 10px;
 }
 
-.music-body img {
-  width: 150px;
-  height: auto;
-}
 .post-header h3 {
   margin-left: 10px;
 }
@@ -68,12 +66,14 @@
   width: 30px;
   height: 30px;
   border-radius: 25px;
+  object-fit: cover;
 }
 
 .post-user {
   display: flex;
   align-items: center;
   flex: 1;
+  border-bottom: 1px solid #6476dc;
 }
 
 .post-body {
@@ -95,7 +95,7 @@
   text-overflow: ellipsis;
   color: #6476dc;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 5px;
 }
 .stat {
   font-weight: bold;
@@ -112,4 +112,8 @@
 }
 .post svg {
   font-size: 24px;
+}
+.post-content {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #6476dc;
 }

@@ -41,7 +41,7 @@ export const checkIfUserFollows = async (currentUserId, otherUserId) => {
       (entry) =>
         entry.followed === otherUserId && currentUserId === entry.follower._id
     );
-    console.log(isFollowing);
+    // console.log(isFollowing);
 
     return isFollowing;
   } catch (error) {

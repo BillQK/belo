@@ -2,7 +2,7 @@ import "./User.css";
 import { useEffect, useState } from "react";
 import * as followsClient from "../../../Services/followerClient";
 import { useNavigate } from "react-router";
-import { Link } from "react-router-dom";
+
 const User = ({ user, currentUser }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const [error, setError] = useState(null);

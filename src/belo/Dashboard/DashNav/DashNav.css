@@ -27,7 +27,7 @@
     justify-content: space-evenly;
     min-width: 250px;
     border-radius: 25px;
-
+    padding: 7px;
     flex-grow: 1;
     appearance: none;
     outline: none;
@@ -60,4 +60,64 @@
   flex-direction: column;
   margin-left: 30px;
   margin-right: 30px;
+}
+.dashboard-nav .search-result {
+  overflow-y: scroll;
+}
+.dashboard-nav input {
+  width: 100%;
+}
+
+.album-item {
+  margin: 5px;
+  border: 2px solid #6476dc;
+  width: fit-content;
+  height: fit-content;
+}
+.search-results {
+  align-content: start;
+  padding: 10px;
+  max-height: 250px; /* Adjust this value to your preference */
+  overflow-y: auto;
+}
+
+.dashboard-nav .album-radio input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  color: white !important;
+}
+.album-radio {
+  margin: 0 !important;
+  padding: 10px;
+  vertical-align: center;
+}
+
+.album-radio img {
+  margin: 5px;
+}
+
+.search-box {
+  color: white !important;
+  background-color: #6476dc !important;
+}
+::placeholder {
+  color: white;
+}
+
+textarea {
+  color: white;
+  margin-top: 20px;
+}
+.album-item.selected {
+  background-color: #6476dc; /* or any color you prefer */
+
+  /* Add other styles as needed */
+}
+
+.instructions {
+  font-size: small;
+  color: white;
+  padding-left: 10px;
+  font-weight: bold;
 }

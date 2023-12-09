@@ -7,7 +7,7 @@ const Header = () => {
   const navigate = useNavigate(); // useNavigate hook for navigation
 
   const handleButtonClick = (path) => {
-    console.log("here");
+    // console.log("here");
     navigate(path);
   };
   return (

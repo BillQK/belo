@@ -21,7 +21,7 @@ const SetUpProfile = () => {
     try {
       const profileDetails = await profileClient.createProfile(profile);
       dispatch(updateUserProfile(profileDetails));
-      navigate("/Dashboard/feed");
+      navigate("/Register/Login");
     } catch (error) {
       setError(error);
     }

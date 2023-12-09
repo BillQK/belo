@@ -7,12 +7,13 @@ import {
   FiEdit3,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import "./DashNav.css";
 import { useState, useEffect } from "react";
 import Modal from "../../components/Modal/Modal";
-import axios from "axios";
+
 import * as postsClient from "../../Services/postsClient";
 import * as userClient from "../../Services/userClient";
+import * as spotifyClient from "../../Services/spotifyClient";
+import "./DashNav.css";
 
 const DashNav = () => {
   const navigate = useNavigate(); // useNavigate hook for navigation
@@ -21,38 +22,77 @@ const DashNav = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isCreating, setIsCreating] = useState(false);
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
 
-  const [description, setDescription] = useState("Something Meaningful");
+  const [description, setDescription] = useState("");
 
   const [error, setError] = useState(null);
 
   // Function to close the modal
   const closeEditModal = () => setIsCreating(false);
   // Function to open the modal
-  const openEditModal = () => setIsCreating(true);
-
+  const openEditModal = () => {
+    if (Object.keys(user).length === 0) {
+      navigate("/Register/Login");
+      return;
+    }
+    setIsCreating(true);
+  };
   const handleSave = async (event) => {
     event.preventDefault();
-    let user = await userClient.account();
-    setUser(user);
-    console.log(user._id);
-
-    await postsClient.createPost(user._id, description);
+    const post = {
+      description: description,
+      spotifyContent: {
+        contentType: selectedAlbum.type,
+        contentID: selectedAlbum.id,
+      },
+    };
+    await postsClient.createPost(user._id, post);
     closeEditModal();
   };
   const handleButtonClick = (path) => {
     navigate(`/Dashboard${path}`); // Adjusted path for parameterized routing
   };
+  const [accessToken, setAccessToken] = useState("");
 
-  const fetchUser = async () => {
-    try {
-      const user = await userClient.account();
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await userClient.account(); // This should now include the accessToken
 
-      setUser(user);
-    } catch (error) {
-      setError(error);
+        setUser(user);
+        setAccessToken(user.accesstoken);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+        setError(error);
+      }
+    };
+
+    fetchUser();
+  }, []); // Fetch user details when component mounts
+
+  useEffect(() => {
+    if (searchTerm.trim() === "") {
+      setSearchResults([]);
+      return;
     }
-  };
+
+    const performSearch = async () => {
+      try {
+        const results = await spotifyClient.searchSpotify(
+          searchTerm,
+          accessToken
+        );
+        console.log(results);
+        setSearchResults(results); // Assuming the response has an albums.items structure
+      } catch (error) {
+        console.error("Error searching Spotify:", error);
+        setError(error);
+      }
+    };
+
+    performSearch();
+  }, [searchTerm]); // Run effect whenever searchTerm changes
 
   return (
     <nav className="dashboard-nav">
@@ -63,37 +103,31 @@ const DashNav = () => {
         <li>
           <button onClick={() => handleButtonClick("/feed")}>
             <FiHome />
-            Home
           </button>
         </li>
         <li>
           <button onClick={() => handleButtonClick("/search")}>
             <FiSearch />
-            Search
           </button>
         </li>
         <li>
           <button onClick={() => handleButtonClick("/messages")}>
             <FiBell />
-            Alerts
           </button>
         </li>
         <li>
           <button onClick={() => handleButtonClick("/playlist")}>
             <FiFolder />
-            Playlist
           </button>
         </li>
         <li>
           <button onClick={() => handleButtonClick("/profile")}>
             <FiUser />
-            Profile
           </button>
         </li>
         <li>
           <button onClick={openEditModal}>
             <FiEdit3 />
-            New Post
           </button>
         </li>
       </ul>
@@ -101,31 +135,50 @@ const DashNav = () => {
       <Modal show={isCreating} onClose={closeEditModal}>
         <form onSubmit={handleSave}>
           <div className="edit-body">
-            {/* <div className="instructions">
+            <div className="instructions">
               <p>Please follow the guidelines below for creating a post:</p>
               <ul>
                 <li>Keep your language respectful and inclusive.</li>
                 <li>Avoid sharing sensitive personal information.</li>
                 <li>Ensure your post does not violate any community rules.</li>
-                
               </ul>
-            </div> */}
+            </div>
 
-            {/* Search Tool */}
             <div>
               <input
+                className="search-box"
                 type="text"
                 placeholder="Type to search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <div className="search-results">
-                {searchResults.map((track, index) => (
-                  <div key={index} className="search-result-item">
-                    <div>{track.name}</div>
-                    <div>
-                      {track.artists.map((artist) => artist.name).join(", ")}
-                    </div>
+              <div className="search-results d-flex flex-wrap">
+                {searchResults.map((album, index) => (
+                  <div
+                    key={index}
+                    className={`album-item ${
+                      selectedAlbum && selectedAlbum.name === album.name
+                        ? "selected"
+                        : ""
+                    }`}
+                  >
+                    <label className="album-radio">
+                      <input
+                        type="radio"
+                        name="albumSelection"
+                        value={album.name}
+                        checked={
+                          selectedAlbum && selectedAlbum.name === album.name
+                        }
+                        onChange={() => setSelectedAlbum(album)}
+                      />
+                      <img
+                        src={album.images[0].url}
+                        alt={album.name}
+                        height="50"
+                      />
+                      {album.name}
+                    </label>
                   </div>
                 ))}
               </div>
@@ -142,7 +195,7 @@ const DashNav = () => {
             ></textarea>
 
             <button className="my-3 save-button" type="submit">
-              Save Changes
+              Create Post
             </button>
             <button
               className="cancel-button"

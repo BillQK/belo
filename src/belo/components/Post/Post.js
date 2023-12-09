@@ -1,5 +1,4 @@
 import "./Post.css";
-
 import {
   FaHeart,
   FaBookmark,
@@ -9,7 +8,8 @@ import {
 } from "react-icons/fa";
 import { useState } from "react";
 import { FiShare } from "react-icons/fi";
-const Post = ({ post }) => {
+
+const Post = ({ post, userProfile }) => {
   const [liked, setLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(+post.likesCount);
   const [bookMarked, setBookMarked] = useState(false);
@@ -23,25 +23,34 @@ const Post = ({ post }) => {
   const toggleBookMark = () => {
     setBookMarked(!bookMarked);
   };
+
+  // Optional chaining to safely access userProfile properties
+  const avatar = userProfile?.avatar;
+  const userName = userProfile?.userName;
+
+  // console.log(avatar);
   return (
     <div className="post">
       <div className="post-header">
         <div className="post-user">
-          <img src={post.imageUrl} alt="Post" className="post-image" />
-          <p>{post.username}</p>
+          {/* Use the avatar and userName variables with optional chaining */}
+          <img src={avatar} alt="Post" className="post-image" />
+          <p>{"@" + userName}</p>
         </div>
       </div>
-      <p>{post.description}</p>
-      <iframe
-        style={{ borderRadius: "12px" }}
-        src="https://open.spotify.com/embed/track/4bmuGIHRJYMjL02yXZeoCd?utm_source=generator"
-        width="100%"
-        height="152"
-        frameBorder="0"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-      ></iframe>
+      <div className="post-content">
+        <p>{post.description}</p>
+        <iframe
+          title="Spotify Embed: Recommendation Playlist "
+          src={`https://open.spotify.com/embed/${post.spotifyContent.contentType}/${post.spotifyContent.contentID}?utm_source=generator&theme=1`}
+          width="100%"
+          height="100%"
+          style={{ minHeight: "360px" }}
+          frameBorder="0"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        />
+      </div>
 
       <div className="post-stat p-2">
         <span onClick={toggleLike}>
@@ -60,11 +69,8 @@ const Post = ({ post }) => {
           {bookMarked ? <FaBookmark /> : <FaRegBookmark />}
         </span>
       </div>
-
-      {/* <div className="comment-section">
-        <CommentSection />
-      </div> */}
     </div>
   );
 };
+
 export default Post;

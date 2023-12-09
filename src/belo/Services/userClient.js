@@ -11,13 +11,13 @@ export const signIn = async (credentials) => {
   return response.data;
 };
 export const signUp = async (credentials) => {
-  console.log(credentials);
+  // console.log(credentials);
   const response = await request.post(`${USERS_API}/signup`, credentials);
   return response.data;
 };
 export const signOut = async () => {
   const response = await request.post(`${USERS_API}/signout`);
-  return response.data;
+  return response.status;
 };
 export const account = async () => {
   const response = await request.post(`${USERS_API}/account`);
@@ -29,7 +29,7 @@ export const findUserById = async (userId) => {
 };
 export const updateUser = async (userId, user) => {
   const response = await request.put(`${USERS_API}/${userId}`, user);
-  return response.data;
+  return response.status;
 };
 export const findAllUsers = async () => {
   const response = await request.get(USERS_API);

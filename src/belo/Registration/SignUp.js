@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+
 import "./index.css";
 import { useNavigate } from "react-router";
 import * as userClient from "../Services/userClient";

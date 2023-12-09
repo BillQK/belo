@@ -1,26 +1,26 @@
 import React from "react";
-import Button from "../Home/Button/Button";
 
-import { loginEndpoint } from "../../spotify";
+import * as spotifyClient from "../Services/spotifyClient";
 import * as client from "../Services/userClient";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
 import { setCurrentUser } from "../User/userReducer";
 
 const Login = () => {
-  const { currentUser } = useSelector((state) => state.user);
-  const [user, setUser] = useState({
-    userName: "",
-    password: "",
-  });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
+  console.log(user);
   const signIn = async () => {
-    await client.signIn(user);
-    dispatch(setCurrentUser(currentUser));
-    navigate("/Dashboard/feed");
+    const loggedInUser = await client.signIn(user);
+    console.log(loggedInUser);
+    dispatch(setCurrentUser(loggedInUser));
+    window.location.href = spotifyClient.loginEndpoint;
   };
   const handleButtonClick = (path) => {
     navigate(`/Register${path}`); // Adjusted path for parameterized routing
@@ -35,7 +35,7 @@ const Login = () => {
           id="username"
           type="text"
           value={user.userName}
-          onChange={(e) => setUser({ ...user, userName: e.target.value })}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
         <label for="password">PASSWORD *</label>
         <input
