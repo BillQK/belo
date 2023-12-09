@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 
 const User = ({ user, currentUser }) => {
   const [isFollowed, setIsFollowed] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const toggleFollow = async () => {

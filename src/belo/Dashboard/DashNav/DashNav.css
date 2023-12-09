@@ -100,6 +100,7 @@
 .search-box {
   color: white !important;
   background-color: #6476dc !important;
+  margin-bottom: 10px;
 }
 ::placeholder {
   color: white;

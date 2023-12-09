@@ -3,13 +3,12 @@ import React from "react";
 import * as spotifyClient from "../Services/spotifyClient";
 import * as client from "../Services/userClient";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { setCurrentUser } from "../User/userReducer";
 
 const Login = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     username: "",
@@ -22,9 +21,9 @@ const Login = () => {
     dispatch(setCurrentUser(loggedInUser));
     window.location.href = spotifyClient.loginEndpoint;
   };
-  const handleButtonClick = (path) => {
-    navigate(`/Register${path}`); // Adjusted path for parameterized routing
-  };
+  // const handleButtonClick = (path) => {
+  //   navigate(`/Register${path}`); // Adjusted path for parameterized routing
+  // };
   return (
     <div className="login">
       <h2>Welcome back!</h2>

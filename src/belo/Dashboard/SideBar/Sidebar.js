@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SearchBar from "../../Search/Search/SearchBar";
+// import SearchBar from "../../Search/Search/SearchBar";
 import "./Sidebar.css";
 import * as userClient from "../../Services/userClient";
 import UserStatus from "../../User/userStatus";
@@ -24,6 +24,5 @@ const Sidebar = () => {
     </div>
   );
 };
-
 
 export default Sidebar;

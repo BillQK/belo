@@ -159,10 +159,22 @@ const Profile = ({ otherUserID }) => {
   return (
     <div className="profile">
       <div className="cover-Image">
-        <img src={profile.coverImage} alt="Post" className="cover-image" />
+        <img
+          src={profile.coverImage}
+          width="625"
+          height="215"
+          alt="Post"
+          className="cover-image"
+        />
       </div>
       <div className="user-header">
-        <img src={profile.avatar} alt="Avatar" className="avatar" />
+        <img
+          src={profile.avatar}
+          width="100"
+          height="100"
+          alt="Avatar"
+          className="avatar"
+        />
         {otherUserID ? (
           // Render a different component or message for other user's profiles
           <>
@@ -223,6 +235,9 @@ const Profile = ({ otherUserID }) => {
               src={coverImage || coverImageUUID}
               alt="Cover"
               className="cover-image-preview"
+              width="625"
+              height="215"
+              loading="lazy"
             />
 
             <input
@@ -241,6 +256,9 @@ const Profile = ({ otherUserID }) => {
               src={avatarImage || avatarImageUUID}
               alt="Avatar"
               className="avatar-image-preview"
+              width="100"
+              height="100"
+              loading="lazy"
             />
 
             <input
