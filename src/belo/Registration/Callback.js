@@ -5,17 +5,25 @@ import * as userClient from "../Services/userClient";
 const Callback = () => {
   const navigate = useNavigate();
   const updateToken = async () => {
-    const user = await userClient.account();
-    const hash = window.location.hash;
-    window.location.hash = "";
-    if (hash) {
-      const params = new URLSearchParams(hash.substring(1));
-      const accessToken = params.get("access_token");
-      user.accesstoken = accessToken;
-      await userClient.updateUser(user._id, user); //TODO: handle error
-    }
+    try {
+      console.log("Updating token...");
+      const user = await userClient.account();
+      console.log("User:", user);
+      const hash = window.location.hash;
+      window.location.hash = "";
+      if (hash && user && user._id) {
+        const params = new URLSearchParams(hash.substring(1));
+        const accessToken = params.get("access_token");
+        user.accesstoken = accessToken;
+        await userClient.updateUser(user._id, user);
+        console.log("Token updated, navigating to dashboard...");
+      }
 
-    navigate("/Dashboard/feed");
+      navigate("/Dashboard/feed");
+    } catch (error) {
+      console.error("Error updating token:", error);
+      // Handle error appropriately
+    }
   };
   useEffect(() => {
     updateToken();
