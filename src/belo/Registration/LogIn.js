@@ -21,9 +21,7 @@ const Login = () => {
     dispatch(setCurrentUser(loggedInUser));
     window.location.href = spotifyClient.loginEndpoint;
   };
-  // const handleButtonClick = (path) => {
-  //   navigate(`/Register${path}`); // Adjusted path for parameterized routing
-  // };
+
   return (
     <div className="login">
       <h2>Welcome back!</h2>

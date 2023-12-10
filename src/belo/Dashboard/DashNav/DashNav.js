@@ -53,15 +53,12 @@ const DashNav = () => {
   const handleButtonClick = (path) => {
     navigate(`/Dashboard${path}`); // Adjusted path for parameterized routing
   };
-  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const user = await userClient.account(); // This should now include the accessToken
-
         setUser(user);
-        setAccessToken(user.accesstoken);
       } catch (error) {
         console.error("Error fetching user:", error);
         setError(error);
@@ -79,10 +76,8 @@ const DashNav = () => {
 
     const performSearch = async () => {
       try {
-        const results = await spotifyClient.searchSpotify(
-          searchTerm,
-          accessToken
-        );
+        console.log(user._id);
+        const results = await spotifyClient.searchSpotify(user._id, searchTerm);
         console.log(results);
         setSearchResults(results); // Assuming the response has an albums.items structure
       } catch (error) {
