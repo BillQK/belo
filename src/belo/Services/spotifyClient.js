@@ -22,3 +22,5 @@ export const searchSpotify = async (userId, query) => {
     throw error;
   }
 };
+
+
