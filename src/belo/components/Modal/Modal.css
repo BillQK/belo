@@ -20,6 +20,7 @@
   max-width: 35%;
   width: auto;
   height: 80%;
+  overflow-y: scroll;
 }
 
 .modal-header {

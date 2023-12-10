@@ -46,6 +46,7 @@
     }
   }
 }
+
 .dashboard-nav h1 {
   font-size: var(--text-xl) !important;
   text-align: center;
@@ -56,6 +57,8 @@
   padding: 10px;
 }
 .edit-body {
+  overflow-y: scroll;
+
   display: flex;
   flex-direction: column;
   margin-left: 30px;
