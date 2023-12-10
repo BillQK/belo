@@ -86,6 +86,7 @@ const DashNav = () => {
         console.log(results);
         setSearchResults(results); // Assuming the response has an albums.items structure
       } catch (error) {
+        await userClient.signOut();
         navigate("/Register/Login");
         return;
       }
