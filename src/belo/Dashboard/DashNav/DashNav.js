@@ -86,8 +86,8 @@ const DashNav = () => {
         console.log(results);
         setSearchResults(results); // Assuming the response has an albums.items structure
       } catch (error) {
-        console.error("Error searching Spotify:", error);
-        setError(error);
+        navigate("/Register/Login");
+        return;
       }
     };
 
