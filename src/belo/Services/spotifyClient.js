@@ -28,3 +28,5 @@ export const searchSpotify = async (query, accessToken) => {
     throw error;
   }
 };
+
+
