@@ -138,7 +138,6 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
             width="100%"
             height="100%"
             style={{ minHeight: "360px" }}
-            frameBorder="0"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
           />
@@ -187,9 +186,10 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
               <div className="search-results d-flex flex-wrap">
                 {searchResults.map((album, index) => (
                   <div
-                    key={index}
+                    key={album.id}
                     className={`album-item ${
-                      selectedAlbum && selectedAlbum.name === album.name
+                      console.log(selectedAlbum) &&
+                      selectedAlbum.id === album.id
                         ? "selected"
                         : ""
                     }`}
@@ -198,9 +198,9 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
                       <input
                         type="radio"
                         name="albumSelection"
-                        value={album.name}
+                        value={album.id}
                         checked={
-                          selectedAlbum && selectedAlbum.name === album.name
+                          selectedAlbum ? selectedAlbum.id === album.id : false
                         }
                         onChange={() => setSelectedAlbum(album)}
                       />
@@ -208,6 +208,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
                         src={album.images[0].url}
                         alt={album.name}
                         height="50"
+                        width="50"
                       />
                       {album.name}
                     </label>

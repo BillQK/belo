@@ -164,8 +164,8 @@ const Profile = ({ otherUserID }) => {
       <div className="cover-Image">
         <img
           src={profile.coverImage}
-          width="625"
-          height="215"
+          width={625}
+          height={215}
           alt="Post"
           className="cover-image"
         />
@@ -173,8 +173,8 @@ const Profile = ({ otherUserID }) => {
       <div className="user-header">
         <img
           src={profile.avatar}
-          width="100"
-          height="100"
+          width={100}
+          height={100}
           alt="Avatar"
           className="avatar"
         />
@@ -246,8 +246,8 @@ const Profile = ({ otherUserID }) => {
               src={coverImage || coverImageUUID}
               alt="Cover"
               className="cover-image-preview"
-              width="625"
-              height="215"
+              width={625}
+              height={215}
               loading="lazy"
             />
 
@@ -267,8 +267,8 @@ const Profile = ({ otherUserID }) => {
               src={avatarImage || avatarImageUUID}
               alt="Avatar"
               className="avatar-image-preview"
-              width="100"
-              height="100"
+              width={100}
+              height={100}
               loading="lazy"
             />
 
