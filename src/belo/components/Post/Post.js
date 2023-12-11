@@ -116,7 +116,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         <div className="post-user ">
           {/* Use the avatar and userName variables with optional chaining */}
           <Link to={`/Dashboard/profile/${post.userId}`}>
-            <img src={avatar} alt="Post" className="post-image" />
+            <img src={avatar} loading="lazy" alt="" className="post-image" />
           </Link>
 
           <Link to={`/Dashboard/profile/${post.userId}`}>

@@ -114,6 +114,9 @@ const Profile = ({ otherUserID }) => {
       if (status === 200) {
         setIsFollowed(!isFollowed);
       }
+    } else {
+      navigate("/Register/Login");
+      return;
     }
   };
   useEffect(() => {
