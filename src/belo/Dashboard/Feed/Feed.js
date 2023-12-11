@@ -39,7 +39,7 @@ const Feed = () => {
   return (
     <div className="feed">
       {posts.map((post, index) => (
-        <Post key={index} post={post} userProfile={userProfiles[post.userId]} />
+        <Post key={index} post={post} userProfile={userProfiles[post.userId]} type="feed" />
       ))}
 
       <EndOfFeed />

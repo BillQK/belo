@@ -67,7 +67,7 @@
 .dashboard-nav .search-result {
   overflow-y: scroll;
 }
-.dashboard-nav input {
+input {
   width: 100%;
 }
 

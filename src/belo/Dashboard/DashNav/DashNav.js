@@ -23,7 +23,7 @@ const DashNav = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isCreating, setIsCreating] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-
+  const [accessToken, setAccessToken] = useState("");
   const [description, setDescription] = useState("");
 
   const [error, setError] = useState(null);
@@ -39,12 +39,11 @@ const DashNav = () => {
     setIsCreating(true);
   };
   const handleSave = async (event) => {
-    event.preventDefault();
     const post = {
       description: description,
       spotifyContent: {
-        contentType: selectedAlbum.type,
-        contentID: selectedAlbum.id,
+        contentType: selectedAlbum ? selectedAlbum.type : null,
+        contentID: selectedAlbum ? selectedAlbum.id : null,
       },
     };
     await postsClient.createPost(user._id, post);
@@ -53,7 +52,6 @@ const DashNav = () => {
   const handleButtonClick = (path) => {
     navigate(`/Dashboard${path}`); // Adjusted path for parameterized routing
   };
-  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {

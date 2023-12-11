@@ -43,7 +43,7 @@
 }
 
 .modal-body {
-  padding: 1rem 0; /* Add padding above and below the body content */
+  padding: 1rem; /* Add padding above and below the body content */
 }
 
 .modal-footer {

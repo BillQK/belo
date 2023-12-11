@@ -127,6 +127,9 @@ const Profile = ({ otherUserID }) => {
         setUser(user);
         if (otherUserID) {
           // Fetch and set the profile based on otherUserID when available
+          if (otherUserID === user._id) {
+            navigate("/Dashboard/profile");
+          }
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           const posts = await postsClient.getPostsbyUserId(otherUserID);
           setProfile(otherUser);
@@ -224,7 +227,15 @@ const Profile = ({ otherUserID }) => {
       <div className="user-posts">
         {posts &&
           posts.map((post, index) => {
-            return <Post key={index} post={post} userProfile={profile} />;
+            return (
+              <Post
+                key={index}
+                post={post}
+                userProfile={profile}
+                type="profile"
+                otherUserID={otherUserID}
+              />
+            );
           })}
       </div>
       <EndOfFeed />

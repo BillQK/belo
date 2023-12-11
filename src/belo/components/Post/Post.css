@@ -117,3 +117,10 @@
   padding-bottom: 10px;
   border-bottom: 1px solid #6476dc;
 }
+
+.post .album-radio input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  color: white !important;
+}

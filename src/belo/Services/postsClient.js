@@ -21,3 +21,13 @@ export const createPost = async (userId, post) => {
 
   return response.data;
 };
+
+export const updatePost = async (postId, post) => {
+  const response = await request.put(`${POSTS_API}/${postId}`, post);
+  return response.data;
+};
+
+export const deletePost = async (postId) => {
+  const response = await request.delete(`${POSTS_API}/${postId}`);
+  return response.data;
+};
