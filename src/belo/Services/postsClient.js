@@ -2,7 +2,7 @@ import axios from "axios";
 
 const request = axios.create({
   withCredentials: true,
-  timeout: 1000, // Timeout set to 5000 milliseconds (5 seconds)
+  timeout: 5000, // Timeout set to 5000 milliseconds (5 seconds)
 });
 export const BASE_API = process.env.REACT_APP_BASE_API_URL;
 export const USERS_API = `${BASE_API}/api/users`;
