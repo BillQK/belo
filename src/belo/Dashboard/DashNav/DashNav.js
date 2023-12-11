@@ -29,7 +29,9 @@ const DashNav = () => {
   const [error, setError] = useState(null);
 
   // Function to close the modal
-  const closeEditModal = () => setIsCreating(false);
+  const closeEditModal = () => {
+    setIsCreating(false);
+  };
   // Function to open the modal
   const openEditModal = () => {
     if (Object.keys(user).length === 0) {
@@ -42,8 +44,9 @@ const DashNav = () => {
     const post = {
       description: description,
       spotifyContent: {
+        contentName: selectedAlbum ? selectedAlbum.name : "",
         contentType: selectedAlbum ? selectedAlbum.type : null,
-        contentID: selectedAlbum ? selectedAlbum.id : null,
+        contentID: selectedAlbum ? selectedAlbum.id : "",
       },
     };
     await postsClient.createPost(user._id, post);
@@ -156,7 +159,7 @@ const DashNav = () => {
                   <div
                     key={index}
                     className={`album-item ${
-                      selectedAlbum && selectedAlbum.name === album.name
+                      selectedAlbum && selectedAlbum.id === album.id
                         ? "selected"
                         : ""
                     }`}
@@ -166,15 +169,14 @@ const DashNav = () => {
                         type="radio"
                         name="albumSelection"
                         value={album.name}
-                        checked={
-                          selectedAlbum && selectedAlbum.name === album.name
-                        }
+                        checked={selectedAlbum && selectedAlbum.id === album.id}
                         onChange={() => setSelectedAlbum(album)}
                       />
                       <img
                         src={album.images[0].url}
                         alt={album.name}
                         height="50"
+                        width="50"
                       />
                       {album.name}
                     </label>

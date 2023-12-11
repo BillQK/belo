@@ -2,32 +2,61 @@ import axios from "axios";
 
 const request = axios.create({
   withCredentials: true,
+  timeout: 1000, // Timeout set to 5000 milliseconds (5 seconds)
 });
 export const BASE_API = process.env.REACT_APP_BASE_API_URL;
 export const USERS_API = `${BASE_API}/api/users`;
 export const POSTS_API = `${BASE_API}/api/posts`;
+const handleError = (error) => {
+  if (error.code === "ECONNABORTED") {
+    console.error("Request timed out, refreshing the page...");
+    window.location.reload();
+  } else {
+    console.error(error);
+  }
+};
 export const getAllPosts = async () => {
-  const response = await request.get(`${POSTS_API}`);
-  return response.data;
+  try {
+    const response = await request.get(`${POSTS_API}`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const getPostsbyUserId = async (userId) => {
-  const response = await request.get(`${USERS_API}/${userId}/posts`);
-  return response.data;
+  try {
+    const response = await request.get(`${USERS_API}/${userId}/posts`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const createPost = async (userId, post) => {
-  const response = await request.post(`${POSTS_API}`, { userId, post });
+  try {
+    const response = await request.post(`${POSTS_API}`, { userId, post });
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const updatePost = async (postId, post) => {
-  const response = await request.put(`${POSTS_API}/${postId}`, post);
-  return response.data;
+  try {
+    const response = await request.put(`${POSTS_API}/${postId}`, post);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const deletePost = async (postId) => {
-  const response = await request.delete(`${POSTS_API}/${postId}`);
-  return response.data;
+  try {
+    const response = await request.delete(`${POSTS_API}/${postId}`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };

@@ -8,7 +8,7 @@ import {
   FaEllipsisV,
 } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import { FiDelete, FiShare } from "react-icons/fi";
+import { FiShare } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import * as postsClient from "../../Services/postsClient";
@@ -34,6 +34,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   const closeEditModal = () => setIsEditing(false);
   // Function to open the modal
   const openEditModal = () => {
+    setSearchTerm(post.spotifyContent.contentName);
     setDescription(post.description);
     setIsEditing(true);
   };
@@ -49,11 +50,16 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   const handleSave = async (event) => {
     const postToSave = {
       description: description,
-      spotifyContent: {
-        contentType: selectedAlbum ? selectedAlbum.type : null,
-        contentID: selectedAlbum ? selectedAlbum.id : null,
-      },
     };
+
+    if (selectedAlbum) {
+      postToSave.spotifyContent = {
+        contentName: selectedAlbum.name,
+        contentType: selectedAlbum.type,
+        contentID: selectedAlbum.id,
+      };
+    }
+
     await postsClient.updatePost(post._id, postToSave);
     setSavedDescription(description);
     setSavedAlbum(selectedAlbum);
@@ -83,11 +89,6 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   }, []); // Fetch user details when component mounts
 
   useEffect(() => {
-    if (searchTerm.trim() === "") {
-      setSearchResults([]);
-      return;
-    }
-
     const performSearch = async () => {
       try {
         const results = await spotifyClient.searchSpotify(
@@ -96,6 +97,9 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         );
         console.log(results);
         setSearchResults(results); // Assuming the response has an albums.items structure
+        setSelectedAlbum(
+          results.find((album) => album.id === post.spotifyContent.contentID)
+        );
       } catch (error) {
         await userClient.signOut();
         navigate("/Register/Login");
@@ -186,10 +190,9 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
               <div className="search-results d-flex flex-wrap">
                 {searchResults.map((album, index) => (
                   <div
-                    key={album.id}
+                    key={index}
                     className={`album-item ${
-                      console.log(selectedAlbum) &&
-                      selectedAlbum.id === album.id
+                      selectedAlbum && selectedAlbum.id === album.id
                         ? "selected"
                         : ""
                     }`}
@@ -198,10 +201,8 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
                       <input
                         type="radio"
                         name="albumSelection"
-                        value={album.id}
-                        checked={
-                          selectedAlbum ? selectedAlbum.id === album.id : false
-                        }
+                        value={album.name}
+                        checked={selectedAlbum && selectedAlbum.id === album.id}
                         onChange={() => setSelectedAlbum(album)}
                       />
                       <img

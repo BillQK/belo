@@ -1,34 +1,63 @@
 import axios from "axios";
 const request = axios.create({
   withCredentials: true,
+  timeout: 1000, // Timeout set to 5000 milliseconds (5 seconds)
 });
+const handleError = (error) => {
+  if (error.code === "ECONNABORTED") {
+    console.error("Request timed out, refreshing the page...");
+    window.location.reload();
+  } else {
+    console.error(error);
+  }
+};
 
 export const BASE_API = process.env.REACT_APP_BASE_API_URL;
 export const FOLLOWS_API = `${BASE_API}/api/users`;
 export const findAllFollows = async () => {
-  const response = await request.get(`${FOLLOWS_API}/follows`);
-  return response.data;
+  try {
+    const response = await request.get(`${FOLLOWS_API}/follows`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 export const createUserFollowsUser = async (followerId, followedId) => {
-  const response = await request.post(
-    `${FOLLOWS_API}/${followerId}/follows/${followedId}`
-  );
-  return response.status;
+  try {
+    const response = await request.post(
+      `${FOLLOWS_API}/${followerId}/follows/${followedId}`
+    );
+    return response.status;
+  } catch (error) {
+    handleError(error);
+  }
 };
 export const deleteUserFollowsUser = async (followerId, followedId) => {
-  const response = await request.delete(
-    `${FOLLOWS_API}/${followerId}/follows/${followedId}`
-  );
-  return response.status;
+  try {
+    const response = await request.delete(
+      `${FOLLOWS_API}/${followerId}/follows/${followedId}`
+    );
+    return response.status;
+  } catch (error) {
+    handleError(error);
+  }
 };
 export const findUsersFollowedByUser = async (userId) => {
-  const response = await request.get(`${FOLLOWS_API}/${userId}/following`);
+  try {
+    const response = await request.get(`${FOLLOWS_API}/${userId}/following`);
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 export const findUsersFollowingUser = async (userId) => {
-  const response = await request.get(`${FOLLOWS_API}/${userId}/followers`);
-  return response.data;
+  try {
+    const response = await request.get(`${FOLLOWS_API}/${userId}/followers`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
 };
 
 export const checkIfUserFollows = async (currentUserId, otherUserId) => {
@@ -45,7 +74,6 @@ export const checkIfUserFollows = async (currentUserId, otherUserId) => {
 
     return isFollowing;
   } catch (error) {
-    console.error("Error checking if user follows:", error);
-    return false;
+    handleError(error);
   }
 };
