@@ -120,7 +120,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
           </Link>
 
           <Link to={`/Dashboard/profile/${post.userId}`}>
-            <p>{"@" + userName}</p>
+            <p>{"@" + userName ? "" : userName}</p>
           </Link>
           {type === "profile" && !otherUserID ? (
             <FaEllipsisV
