@@ -33,13 +33,8 @@ export const getPostsbyUserId = async (userId) => {
 };
 
 export const createPost = async (userId, post) => {
-  try {
-    const response = await request.post(`${POSTS_API}`, { userId, post });
-
-    return response.data;
-  } catch (error) {
-    handleError(error);
-  }
+  const response = await request.post(`${POSTS_API}`, { userId, post });
+  return response.data;
 };
 
 export const updatePost = async (postId, post) => {
