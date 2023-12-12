@@ -50,8 +50,16 @@ const DashNav = () => {
         contentID: selectedAlbum ? selectedAlbum.id : "",
       },
     };
-    await postsClient.createPost(user._id, post).then(window.location.reload());
-
+    try {
+      const response = await postsClient.createPost(user._id, post);
+      // Handle response if needed
+      if (response.status === 200) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error creating post:", error);
+      // Handle error appropriately
+    }
     closeEditModal();
   };
   const handleButtonClick = (path) => {
