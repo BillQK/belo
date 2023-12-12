@@ -53,7 +53,7 @@ const DashNav = () => {
     try {
       const response = await postsClient.createPost(user._id, post);
       // Handle response if needed
-      if (response === 200) {
+      if (response === 201) {
         window.location.reload();
       }
     } catch (error) {
