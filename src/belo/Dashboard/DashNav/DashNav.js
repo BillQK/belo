@@ -50,7 +50,8 @@ const DashNav = () => {
         contentID: selectedAlbum ? selectedAlbum.id : "",
       },
     };
-    await postsClient.createPost(user._id, post);
+    await postsClient.createPost(user._id, post).then(window.location.reload());
+
     closeEditModal();
   };
   const handleButtonClick = (path) => {
