@@ -41,6 +41,7 @@ const DashNav = () => {
     setIsCreating(true);
   };
   const handleSave = async (event) => {
+    event.preventDefault();
     const post = {
       description: description,
       spotifyContent: {
