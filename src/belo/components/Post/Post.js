@@ -66,13 +66,13 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     closeEditModal();
   };
 
-  // Optional chaining to safely access userProfile properties
-  const avatar = userProfile?.avatar;
-  const userName = userProfile?.userName;
   const deletePost = async (event) => {
     await postsClient.deletePost(post._id);
     closeEditModal();
   };
+  // Optional chaining to safely access userProfile properties
+  const avatar = userProfile?.avatar;
+  const userName = userProfile?.userName;
   useEffect(() => {
     const fetchUser = async () => {
       try {
