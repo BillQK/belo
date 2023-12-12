@@ -90,6 +90,7 @@ const DashNav = () => {
         await userClient.signOut();
         navigate("/Register/Login");
         return;
+        console.error(error);
       }
     };
 
