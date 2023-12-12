@@ -48,6 +48,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     setBookMarked(!bookMarked);
   };
   const handleSave = async (event) => {
+    event.preventDefault();
     const postToSave = {
       description: description,
     };
@@ -61,6 +62,9 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     }
     try {
       const response = await postsClient.updatePost(post._id, postToSave);
+      if (response == 200) {
+        window.location.reload();
+      }
     } catch (error) {
       console.error("Error creating post:", error);
       // Handle error appropriately
@@ -71,6 +75,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   };
 
   const deletePost = async (event) => {
+    event.preventDefault();
     try {
       const response = await postsClient.deletePost(post._id);
       if (response === 200) {

@@ -40,7 +40,7 @@ export const createPost = async (userId, post) => {
 export const updatePost = async (postId, post) => {
   try {
     const response = await request.put(`${POSTS_API}/${postId}`, post);
-    return response.data;
+    return response.status;
   } catch (error) {
     handleError(error);
   }
