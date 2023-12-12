@@ -34,7 +34,7 @@ export const getPostsbyUserId = async (userId) => {
 
 export const createPost = async (userId, post) => {
   const response = await request.post(`${POSTS_API}`, { userId, post });
-  return response.data;
+  return response.status;
 };
 
 export const updatePost = async (postId, post) => {
@@ -49,7 +49,7 @@ export const updatePost = async (postId, post) => {
 export const deletePost = async (postId) => {
   try {
     const response = await request.delete(`${POSTS_API}/${postId}`);
-    return response.data;
+    return response.status;
   } catch (error) {
     handleError(error);
   }

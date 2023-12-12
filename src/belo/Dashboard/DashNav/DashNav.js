@@ -41,7 +41,6 @@ const DashNav = () => {
     setIsCreating(true);
   };
   const handleSave = async (event) => {
-    event.preventDefault();
     const post = {
       description: description,
       spotifyContent: {
@@ -53,7 +52,7 @@ const DashNav = () => {
     try {
       const response = await postsClient.createPost(user._id, post);
       // Handle response if needed
-      if (response.status === 200) {
+      if (response === 200) {
         window.location.reload();
       }
     } catch (error) {

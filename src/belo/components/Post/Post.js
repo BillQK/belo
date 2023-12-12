@@ -59,15 +59,27 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         contentID: selectedAlbum.id,
       };
     }
-
-    await postsClient.updatePost(post._id, postToSave);
+    try {
+      const response = await postsClient.updatePost(post._id, postToSave);
+    } catch (error) {
+      console.error("Error creating post:", error);
+      // Handle error appropriately
+    }
     setSavedDescription(description);
     setSavedAlbum(selectedAlbum);
     closeEditModal();
   };
 
   const deletePost = async (event) => {
-    await postsClient.deletePost(post._id);
+    try {
+      const response = await postsClient.deletePost(post._id);
+      if (response === 200) {
+        window.location.reload();
+      }
+    } catch (error) {
+      console.error("Error creating post:", error);
+      // Handle error appropriately
+    }
     closeEditModal();
   };
   // Optional chaining to safely access userProfile properties
