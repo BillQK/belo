@@ -15,11 +15,17 @@ const Callback = () => {
         const params = new URLSearchParams(hash.substring(1));
         const accessToken = params.get("access_token");
         user.accesstoken = accessToken;
-        await userClient.updateUser(user._id, user);
-        console.log("Token updated, navigating to dashboard...");
-      }
+        try {
+          const response = userClient.updateUser(user._id, user);
 
-      navigate("/Dashboard/feed");
+          if (response === 200) {
+            navigate("/Dashboard/feed");
+          }
+        } catch (error) {
+          alert("Error Occur Saving User Profile, Please try to login again");
+          navigate("/Register/Login");
+        }
+      }
     } catch (error) {
       console.error("Error updating token:", error);
       // Handle error appropriately

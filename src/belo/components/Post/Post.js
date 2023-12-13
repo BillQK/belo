@@ -166,7 +166,6 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
           ""
         )}
       </div>
-
       <div className="post-stat p-2">
         <span onClick={toggleLike}>
           {liked ? <FaHeart /> : <FaRegHeart />}
