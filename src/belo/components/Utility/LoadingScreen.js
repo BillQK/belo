@@ -13,7 +13,7 @@ function LoadingScreen() {
         stroke-length="0.15"
         bg-opacity="0.1"
         speed="1.4"
-        color="black"
+        color="#6476dc"
       ></l-trefoil>
     </div>
   );
