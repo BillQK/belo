@@ -1,11 +1,20 @@
 import React from "react";
-import "./LoadingScreen.css"; // Import your CSS file for styling
+import { grid } from "ldrs";
+import { trefoil } from "ldrs";
+import "./LoadingScreen.css";
+trefoil.register(); // Default values shown
 
 function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loading-spinner"></div>
-      <p className="loading-text">Loading...</p>
+      <l-trefoil
+        size="500"
+        stroke="4"
+        stroke-length="0.15"
+        bg-opacity="0.1"
+        speed="1.4"
+        color="black"
+      ></l-trefoil>
     </div>
   );
 }
