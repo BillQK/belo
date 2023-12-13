@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as userClient from "../Services/userClient";
-
+import LoadingScreen from "../components/Utility/LoadingScreen";
 const Callback = () => {
   const navigate = useNavigate();
   const updateToken = async () => {
@@ -35,6 +35,8 @@ const Callback = () => {
   useEffect(() => {
     updateToken();
   }, []);
+
+  return <LoadingScreen />;
 };
 
 export default Callback;
