@@ -1,5 +1,4 @@
 import React from "react";
-import { grid } from "ldrs";
 import { trefoil } from "ldrs";
 import "./LoadingScreen.css";
 trefoil.register(); // Default values shown
