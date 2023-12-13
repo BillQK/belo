@@ -1,11 +1,17 @@
 import React from "react";
-import "./LoadingScreen.css"; // Import your CSS file for styling
+import { grid } from "ldrs";
+import "./LoadingScreen.css";
+grid.register();
 
 function LoadingScreen() {
   return (
     <div className="loading-screen">
-      <div className="loading-spinner"></div>
-      <p className="loading-text">Loading...</p>
+      <l-grid
+        className="d-flex justify-content-center"
+        size="800"
+        speed="1.5"
+        color="#6476dc"
+      ></l-grid>
     </div>
   );
 }
