@@ -64,7 +64,7 @@
 
 .post-image {
   max-width: 60px;
-  max-height: 60px;
+  max-height: 60px !important;
   border-radius: 25px;
   object-fit: cover;
 }
