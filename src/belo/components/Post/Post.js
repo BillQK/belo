@@ -107,6 +107,9 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
 
   useEffect(() => {
     const performSearch = async () => {
+      if (searchTerm === "") {
+        return;
+      }
       try {
         const results = await spotifyClient.searchSpotify(
           searchTerm,
