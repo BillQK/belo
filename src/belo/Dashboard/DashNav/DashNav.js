@@ -96,6 +96,7 @@ const DashNav = () => {
         );
         setSearchResults(results); // Assuming the response has an albums.items structure
       } catch (error) {
+        alert("Token Has Expired, Request New Token By Login Again!");
         await userClient.signOut();
         navigate("/Register/Login");
         return;
