@@ -5,6 +5,7 @@ import {
   FiHome,
   FiFolder,
   FiEdit3,
+  FiDatabase,
 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -140,6 +141,12 @@ const DashNav = () => {
         <li>
           <button onClick={openEditModal}>
             <FiEdit3 />
+          </button>
+        </li>
+        <li>
+          {/* {user.role === "DEV" || user.role === "ADMIN"} */}
+          <button onClick={() => handleButtonClick("/dev")}>
+            <FiDatabase />
           </button>
         </li>
       </ul>

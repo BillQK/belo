@@ -1,10 +1,11 @@
-import "./index.css";
-import Feed from "./Feed/Feed";
-import Sidebar from "./SideBar/Sidebar";
 import { useParams } from "react-router";
 import Profile from "../Profile/Profile";
 import Search from "../Search/Search";
 import DashNav from "./DashNav/DashNav";
+import Feed from "./Feed/Feed";
+import Sidebar from "./SideBar/Sidebar";
+import "./index.css";
+import Dev from "../role/Mod";
 
 const DashBoard = () => {
   const { param, userId } = useParams();
@@ -20,6 +21,8 @@ const DashBoard = () => {
       }
     } else if (param === "search") {
       return <Search />;
+    } else if (param === "dev") {
+      return <Dev />;
     } else {
       // Return null or a default component
       return <Feed />;

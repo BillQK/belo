@@ -122,6 +122,7 @@ const Profile = ({ otherUserID }) => {
       return;
     }
   };
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
