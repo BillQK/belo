@@ -71,3 +71,26 @@ export const findAllUsers = async () => {
     handleError(error);
   }
 };
+
+export const restrictUser = async (userId) => {
+  try {
+    const response = await request.put(`${USERS_API}/${userId}`,{
+      restricted: true,
+    });
+    return response.status;
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+export const unRestrictUser = async (userId) => {
+  try {
+    const response = await request.put(`${USERS_API}/${userId}`, {
+      restricted: false,
+    });
+    return response.status;
+  } catch (error) {
+    handleError(error);
+  }
+};

@@ -144,10 +144,13 @@ const DashNav = () => {
           </button>
         </li>
         <li>
-          {/* {user.role === "DEV" || user.role === "ADMIN"} */}
-          <button onClick={() => handleButtonClick("/dev")}>
-            <FiDatabase />
-          </button>
+          {user && (user.role === "DEV" || user.role === "ADMIN") ? (
+            <button onClick={() => handleButtonClick("/dev")}>
+              <FiDatabase />
+            </button>
+          ) : (
+            <></>
+          )}
         </li>
       </ul>
 

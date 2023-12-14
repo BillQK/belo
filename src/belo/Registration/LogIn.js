@@ -3,12 +3,13 @@ import React from "react";
 import * as spotifyClient from "../Services/spotifyClient";
 import * as client from "../Services/userClient";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { setCurrentUser } from "../User/userReducer";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [user, setUser] = useState({
     username: "",
@@ -17,6 +18,18 @@ const Login = () => {
   console.log(user);
   const signIn = async () => {
     const loggedInUser = await client.signIn(user);
+    if (loggedInUser && loggedInUser.restricted) {
+      try {
+        const response = await client.signOut();
+        if (response === 200) {
+          alert("You're Banned. GTFO");
+          navigate("/");
+          return;
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
     console.log(loggedInUser);
     dispatch(setCurrentUser(loggedInUser));
     window.location.href = spotifyClient.loginEndpoint;

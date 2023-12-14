@@ -49,3 +49,11 @@ export const findAllProfile = async () => {
     handleError(error);
   }
 };
+export const findUserByUserName = async (searchTerm) => {
+  try {
+    const response = await request.get(`${PROFILES_API}/search/${searchTerm}`);
+    return response.data;
+  } catch (error) {
+    handleError(error);
+  }
+};
