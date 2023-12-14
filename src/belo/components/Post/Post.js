@@ -46,11 +46,11 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     }
     setLiked(!liked);
     if (liked) {
-      await likesClient.deleteLike(user._id, post._id);
       setNumberOfLikes(numberOfLikes - 1);
+      await likesClient.deleteLike(user._id, post._id);
     } else {
-      await likesClient.createLike(user._id, post._id);
       setNumberOfLikes(numberOfLikes + 1);
+      await likesClient.createLike(user._id, post._id);
     }
   };
 
