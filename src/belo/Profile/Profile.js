@@ -36,6 +36,7 @@ const Profile = ({ otherUserID }) => {
   const [error, setError] = useState(null);
   const [isUploading, setisUploading] = useState(false);
   const [isFollowed, setIsFollowed] = useState(false);
+  const [followerCount, setFollowerCount] = useState(0);
 
   const handleImageChange = async (
     e,
@@ -104,11 +105,13 @@ const Profile = ({ otherUserID }) => {
           user._id,
           otherUserID
         );
+        setFollowerCount(followerCount - 1);
       } else {
         status = await followsClient.createUserFollowsUser(
           user._id,
           otherUserID
         );
+        setFollowerCount(followerCount + 1);
       }
 
       if (status === 200) {
@@ -134,6 +137,7 @@ const Profile = ({ otherUserID }) => {
           const posts = await postsClient.getPostsbyUserId(otherUserID);
           setProfile(otherUser);
           setPosts(posts.reverse());
+          setFollowerCount(otherUser.followerCount);
 
           // Call checkIfUserFollows here
           const isFollowed = await followsClient.checkIfUserFollows(
@@ -150,6 +154,7 @@ const Profile = ({ otherUserID }) => {
           const userProfile = await profileClient.getProfileByUserID(user._id);
           const posts = await postsClient.getPostsbyUserId(user._id);
           setProfile(userProfile);
+          setFollowerCount(userProfile.followerCount);
           setAvatarImageUUID(userProfile.avatar);
           setCoverImageUUID(userProfile.coverImage);
           setPosts(posts.reverse());
@@ -210,7 +215,7 @@ const Profile = ({ otherUserID }) => {
         </div>
         <div className="user-stat">
           <h3 className="user-stat-item">
-            <span className="user-stat-number"> {profile.followerCount} </span>
+            <span className="user-stat-number"> {followerCount} </span>
             <span className="user-stat-category">followers</span>
           </h3>
 
