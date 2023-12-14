@@ -14,6 +14,7 @@ import Modal from "../Modal/Modal";
 import * as postsClient from "../../Services/postsClient";
 import * as userClient from "../../Services/userClient";
 import * as spotifyClient from "../../Services/spotifyClient";
+import * as likesClient from "../../Services/likesClient";
 import { useNavigate } from "react-router-dom";
 const Post = ({ post, userProfile, type, otherUserID }) => {
   const navigate = useNavigate(); // useNavigate hook for navigation
@@ -28,8 +29,8 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [description, setDescription] = useState(post.description);
+  const [user, setUser] = useState(null);
   const [error, setError] = useState(null);
-
   // Function to close the modal
   const closeEditModal = () => setIsEditing(false);
   // Function to open the modal
@@ -38,12 +39,21 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     setDescription(post.description);
     setIsEditing(true);
   };
-  const toggleLike = () => {
+  const toggleLike = async () => {
+    if (!user) {
+      navigate("/Register/login");
+      return;
+    }
     setLiked(!liked);
-    liked
-      ? setNumberOfLikes(numberOfLikes - 1)
-      : setNumberOfLikes(numberOfLikes + 1);
+    if (liked) {
+      await likesClient.deleteLike(user._id, post._id);
+      setNumberOfLikes(numberOfLikes - 1);
+    } else {
+      await likesClient.createLike(user._id, post._id);
+      setNumberOfLikes(numberOfLikes + 1);
+    }
   };
+
   const toggleBookMark = () => {
     setBookMarked(!bookMarked);
   };
@@ -94,8 +104,15 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     const fetchUser = async () => {
       try {
         const user = await userClient.account(); // This should now include the accessToken
-
         setAccessToken(user.accesstoken);
+        setUser(user);
+        const response = await likesClient.findLikesByPost(post._id);
+        console.log(response);
+        if (response.find((like) => like.user._id === user._id)) {
+          setLiked(true);
+        }
+
+        setNumberOfLikes(response.length);
       } catch (error) {
         console.error("Error fetching user:", error);
         setError(error);
