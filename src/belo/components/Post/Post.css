@@ -38,10 +38,6 @@
   margin: 1rem;
 }
 
-.post p {
-  color: white;
-}
-
 .post-header {
   display: flex;
   align-items: center;
@@ -55,7 +51,10 @@
 .post-header h3 {
   margin-left: 10px;
 }
-.post p {
+.post p,
+a {
+  color: white;
+  text-decoration: none;
   font-size: var(--text-sm);
   border: 0;
   white-space: initial;
