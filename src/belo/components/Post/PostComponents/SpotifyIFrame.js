@@ -27,7 +27,7 @@ const SpotifyIframe = ({ contentType, contentID }) => {
       if (isLoading) {
         setError(true);
       }
-    }, 200); // 3 seconds timeout
+    }, 10000); // 10 seconds timeout
 
     return () => clearTimeout(loadTimeoutRef.current);
   }, [isLoading]);
