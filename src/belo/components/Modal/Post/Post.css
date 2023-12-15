@@ -1,0 +1,125 @@
+.post {
+  border: 0.1rem solid #6476dc;
+  /* border-radius: 25px !important ; */
+  margin: 12px !important;
+  padding-bottom: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  background-color: rgb(0, 0, 0) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 10px;
+  /* border: 1px solid #6476dc; */
+  /* border-radius: 20px; */
+}
+
+.post h1 {
+  font-size: var(--text-xl) !important;
+  text-overflow: ellipsis;
+  white-space: initial;
+  color: #6476dc;
+}
+.post h2 {
+  text-overflow: ellipsis;
+  font-size: var(--text-lg);
+  color: #6476dc;
+}
+
+.post h3 {
+  text-overflow: ellipsis;
+  font-size: var(--text-md);
+  color: #5292d6;
+}
+
+.post .post-user p {
+  font-size: 18px;
+  color: white;
+  margin: 1rem;
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid black;
+  /* border-radius: 10px; */
+  padding: 1px;
+  margin-bottom: 10px;
+}
+
+.post-header h3 {
+  margin-left: 10px;
+}
+.post p,
+a {
+  color: white;
+  text-decoration: none;
+  font-size: var(--text-sm);
+  border: 0;
+  white-space: initial;
+  border: 1px solid black;
+}
+
+.post-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 25px;
+  object-fit: cover;
+}
+
+.post-user {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  border-bottom: 1px solid #6476dc;
+}
+
+.post-body {
+  margin-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  padding-top: 30px !important;
+}
+
+.post-stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.5em;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #6476dc;
+  align-items: center;
+  margin-top: 5px;
+}
+.stat {
+  font-weight: bold;
+  margin-right: 1px;
+  margin-top: 2px;
+}
+.post-stat {
+  margin-left: 20px;
+  margin-right: 20px;
+  vertical-align: text-bottom !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.post svg {
+  font-size: 24px;
+}
+.post-content {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #6476dc;
+}
+
+.post .album-radio input {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
+  color: white !important;
+}
