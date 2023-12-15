@@ -28,7 +28,6 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     setLiked,
     numberOfLikes,
     setNumberOfLikes,
-    error,
     accessToken,
   } = usePostDetails(post._id);
 

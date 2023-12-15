@@ -1,0 +1,15 @@
+.reloading-button {
+  width: 10%;
+  color: white;
+  border: none;
+  padding: 1rem 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: medium;
+  border: 1px solid #6476dc;
+  background-color: #6476dc;
+}
+.reloading-button:hover {
+  background-color: black;
+}

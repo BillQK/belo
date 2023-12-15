@@ -11,25 +11,25 @@ const Feed = () => {
 
   const fetchPosts = async () => {
     const posts = await client.getAllPosts();
-    setPosts(posts.reverse());
 
-    // Fetch user profiles based on post userIds
-    const userIds = posts.map((post) => post.userId);
-    // console.log("User IDs:", userIds); // Check if userIds are correctly extracted
+    if (posts) {
+      setPosts(posts.reverse());
 
-    const profiles = await Promise.all(
-      userIds.map((userId) => profileClient.getProfileByUserID(userId))
-    );
+      // Fetch user profiles based on post userIds
+      const userIds = posts.map((post) => post.userId);
+      // console.log("User IDs:", userIds); // Check if userIds are correctly extracted
+      const profiles = await Promise.all(
+        userIds.map((userId) => profileClient.getProfileByUserID(userId))
+      );
+      // console.log("Profiles:", profiles); // Check if profiles are correctly fetched
 
-    // console.log("Profiles:", profiles); // Check if profiles are correctly fetched
-
-    // Create an object to map userIds to profiles
-    const profilesMap = {};
-    userIds.forEach((userId, index) => {
-      profilesMap[userId] = profiles[index];
-    });
-
-    setUserProfiles(profilesMap);
+      // Create an object to map userIds to profiles
+      const profilesMap = {};
+      userIds.forEach((userId, index) => {
+        profilesMap[userId] = profiles[index];
+      });
+      setUserProfiles(profilesMap);
+    }
   };
 
   useEffect(() => {
@@ -39,7 +39,12 @@ const Feed = () => {
   return (
     <div className="feed">
       {posts.map((post, index) => (
-        <Post key={index} post={post} userProfile={userProfiles[post.userId]} type="feed" />
+        <Post
+          key={index}
+          post={post}
+          userProfile={userProfiles[post.userId]}
+          type="feed"
+        />
       ))}
 
       <EndOfFeed />
