@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import LoadingComponent from "../../Utility/LoadingComponents";
+import LoadingComponent from "./SpotifyIFrameComponents/LoadingComponents";
 import ReloadingButton from "./SpotifyIFrameComponents/ReloadingButton";
 
 const SpotifyIframe = ({ contentType, contentID }) => {
