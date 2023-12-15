@@ -60,6 +60,9 @@ const Login = () => {
       <h4>
         Need an account? <Link to="/Register/Signup">Register</Link>
       </h4>
+      <h4>
+        Just visting? <Link to="/Dashboard/feed">Click Here!</Link>
+      </h4>
       {/* <button onClick={() => handleButtonClick("/Signup")}>Register</button> */}
       {/* <a href={loginEndpoint}>
         <Button text="Login" />

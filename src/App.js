@@ -27,7 +27,7 @@ function App() {
           <Suspense fallback={<LoadingScreen />}>
             <div>
               <Routes>
-                <Route path="/" element={<Navigate to="/Home" />} />
+                <Route path="/*" element={<Navigate to="/Dashboard/feed" />} />
                 <Route path="/Home" element={<Home />} />
                 <Route path="/callback" element={<Callback />} />
                 <Route
