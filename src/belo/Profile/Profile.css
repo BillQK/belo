@@ -22,10 +22,24 @@
   object-fit: cover;
   position: relative;
   bottom: 20px;
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
   border-radius: 50px;
   margin-right: 150px;
+}
+
+/* Example for screens smaller than 768px */
+@media screen and (max-width: 768px) {
+  .avatar {
+    margin-right: 50px; /* Reduced margin for smaller screens */
+  }
+}
+
+/* You can add more breakpoints for different screen sizes */
+@media screen and (max-width: 480px) {
+  .avatar {
+    margin-right: 20px; /* Even smaller margin for very small screens */
+  }
 }
 .user-header {
   display: flex;
