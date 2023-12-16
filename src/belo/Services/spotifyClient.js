@@ -7,7 +7,7 @@ const SPOTIFY_BASE_API = `${BASE_API}/search`;
 
 export const redirectToSpotifyLogin = async () => {
   try {
-    const response = await axios.get(`${BASE_API}/login`, {
+    const response = await request.get(`${BASE_API}/login`, {
       withCredentials: true,
     });
     const { authUrl } = response.data;
