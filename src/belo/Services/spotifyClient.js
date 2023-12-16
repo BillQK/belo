@@ -5,7 +5,18 @@ const request = axios.create({
 export const BASE_API = process.env.REACT_APP_BASE_API_URL;
 const SPOTIFY_BASE_API = `${BASE_API}/search`;
 
-export const loginEndpoint = process.env.REACT_APP_BASE_API_URL + "/login";
+export const redirectToSpotifyLogin = async () => {
+  try {
+    const response = await axios.get(`${BASE_API}/login`, {
+      withCredentials: true,
+    });
+    const { authUrl } = response.data;
+    window.location.href = authUrl; // Redirect the user
+  } catch (error) {
+    console.error("Login error:", error);
+    // Handle login error (e.g., show a message to the user)
+  }
+};
 
 export const searchSpotify = async (userId, query) => {
   try {

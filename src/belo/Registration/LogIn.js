@@ -32,7 +32,7 @@ const Login = () => {
     }
     console.log(loggedInUser);
     dispatch(setCurrentUser(loggedInUser));
-    window.location.href = spotifyClient.loginEndpoint;
+    await spotifyClient.redirectToSpotifyLogin();
   };
 
   return (
