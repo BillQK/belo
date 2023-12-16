@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import * as spotifyClient from "../../../Services/spotifyClient";
 import { useNavigate } from "react-router";
-const useSpotifySearch = (searchTerm, accessToken, contentID) => {
+const useSpotifySearch = (userId, searchTerm, contentID) => {
   const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
@@ -12,10 +12,7 @@ const useSpotifySearch = (searchTerm, accessToken, contentID) => {
 
     const performSearch = async () => {
       try {
-        const results = await spotifyClient.searchSpotify(
-          searchTerm,
-          accessToken
-        );
+        const results = await spotifyClient.searchSpotify(userId, searchTerm);
         setSearchResults(results);
         setSelectedAlbum(results.find((album) => album.id === contentID));
       } catch (error) {
@@ -25,7 +22,7 @@ const useSpotifySearch = (searchTerm, accessToken, contentID) => {
     };
 
     performSearch();
-  }, [searchTerm, accessToken, contentID, navigate]);
+  }, [searchTerm, contentID, navigate]);
 
   return { searchResults, selectedAlbum, setSelectedAlbum };
 };

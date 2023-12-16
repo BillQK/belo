@@ -35,8 +35,8 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   const { deletePost } = useDeletePost();
 
   const { searchResults, selectedAlbum, setSelectedAlbum } = useSpotifySearch(
+    user?._id,
     postState.searchTerm,
-    accessToken,
     post.spotifyContent?.contentID
   );
 
