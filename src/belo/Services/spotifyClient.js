@@ -2,23 +2,17 @@ import axios from "axios";
 const request = axios.create({
   withCredentials: true,
 });
-const authEndpoint = "https://accounts.spotify.com/authorize?";
-const clientID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const redirectUrl = process.env.REACT_APP_CALLBACK_API;
-const scopes = ["user-library-read", "playlist-read-private"];
-
-export const loginEndpoint = `${authEndpoint}client_id=${clientID}&redirect_uri=${redirectUrl}&scope=${scopes.join(
-  "%20"
-)}&response_type=token&show_dialog=true`;
 export const BASE_API = process.env.REACT_APP_BASE_API_URL;
-const SPOTIFY_BASE_API = `${BASE_API}/api/spotify`;
+const SPOTIFY_BASE_API = `${BASE_API}/search`;
 
-export const searchSpotify = async (query, accessToken) => {
+export const loginEndpoint = process.env.REACT_APP_BASE_API_URL + "/login";
+
+export const searchSpotify = async (userId, query) => {
   try {
     const response = await request.get(SPOTIFY_BASE_API, {
       params: {
+        userId: userId,
         q: query,
-        accessToken: accessToken,
         type: "album",
       },
     });

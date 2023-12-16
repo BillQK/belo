@@ -24,7 +24,7 @@ const DashNav = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isCreating, setIsCreating] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const [accessToken, setAccessToken] = useState("");
+
   const [description, setDescription] = useState("");
 
   const [error, setError] = useState(null);
@@ -71,9 +71,7 @@ const DashNav = () => {
     const fetchUser = async () => {
       try {
         const user = await userClient.account(); // This should now include the accessToken
-
         setUser(user);
-        setAccessToken(user.accesstoken);
       } catch (error) {
         console.error("Error fetching user:", error);
         setError(error);
@@ -91,10 +89,7 @@ const DashNav = () => {
 
     const performSearch = async () => {
       try {
-        const results = await spotifyClient.searchSpotify(
-          searchTerm,
-          accessToken
-        );
+        const results = await spotifyClient.searchSpotify(user._id, searchTerm);
         setSearchResults(results); // Assuming the response has an albums.items structure
       } catch (error) {
         alert("Token Has Expired, Request New Token By Login Again!");
