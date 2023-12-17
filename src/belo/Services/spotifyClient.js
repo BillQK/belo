@@ -7,10 +7,9 @@ const SPOTIFY_BASE_API = `${BASE_API}/search`;
 
 export const redirectToSpotifyLogin = async () => {
   try {
-    const response = await request.get(`${BASE_API}/login`, {
-      withCredentials: true,
-    });
+    const response = await request.get(`${BASE_API}/login`);
     const { authUrl } = response.data;
+    console.log(authUrl);
     window.location.href = authUrl; // Redirect the user
   } catch (error) {
     console.error("Login error:", error);
