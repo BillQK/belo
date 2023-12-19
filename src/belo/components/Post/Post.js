@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, lazy } from "react";
 import Modal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
-import SpotifyIframe from "./PostComponents/SpotifyIFrame";
 import PostHeader from "./PostComponents/PostHeader";
 import PostStats from "./PostComponents/PostStats";
 import PostEditForm from "./PostComponents/PostEditForm";
@@ -11,6 +10,7 @@ import useDeletePost from "./hooks/useDeletePost";
 import useSpotifySearch from "./hooks/useSpotifySearch";
 import * as likesClient from "../../Services/likesClient";
 import "./Post.css";
+const SpotifyIframe = lazy(() => import("./PostComponents/SpotifyIFrame"));
 
 const Post = ({ post, userProfile, type, otherUserID }) => {
   const navigate = useNavigate();
@@ -22,14 +22,8 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
     savedAlbum: post.spotifyContent,
   });
 
-  const {
-    user,
-    liked,
-    setLiked,
-    numberOfLikes,
-    setNumberOfLikes,
-    accessToken,
-  } = usePostDetails(post._id);
+  const { user, liked, setLiked, numberOfLikes, setNumberOfLikes } =
+    usePostDetails(post._id);
 
   const { savePost } = useSavePost();
   const { deletePost } = useDeletePost();

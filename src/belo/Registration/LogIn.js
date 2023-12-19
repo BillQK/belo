@@ -30,7 +30,6 @@ const Login = () => {
         console.log(error);
       }
     }
-    console.log(loggedInUser);
     dispatch(setCurrentUser(loggedInUser));
     await spotifyClient.redirectToSpotifyLogin();
   };
@@ -40,14 +39,14 @@ const Login = () => {
       <h2>Welcome back!</h2>
       <h3>We're so excited to see you again!</h3>
       <div className="input-box">
-        <label for="username">USERNAME *</label>
+        <label htmlFor="username">USERNAME *</label>
         <input
           id="username"
           type="text"
           value={user.userName}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
-        <label for="password">PASSWORD *</label>
+        <label htmlFor="password">PASSWORD *</label>
         <input
           id="password"
           type="password"

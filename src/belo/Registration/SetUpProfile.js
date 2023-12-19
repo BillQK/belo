@@ -8,6 +8,7 @@ import { updateUserProfile } from "../Profile/ProfileReducer";
 import { useDispatch } from "react-redux";
 const SetUpProfile = () => {
   const { currentUser } = useSelector((state) => state.user);
+
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const [profile, setProfile] = useState({
@@ -16,6 +17,7 @@ const SetUpProfile = () => {
     displayName: "",
     description: "",
   });
+
   const navigate = useNavigate();
   const createProfile = async () => {
     try {

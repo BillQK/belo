@@ -30,21 +30,21 @@ const SignUp = () => {
       <h2>Creating Account</h2>
       <h3>Let's create an account for you!</h3>
       <div className="input-box">
-        <label for="username">USERNAME *</label>
+        <label htmlFor="username">USERNAME *</label>
         <input
           id="username"
           type="text"
           value={user.userName}
           onChange={(e) => setUser({ ...user, userName: e.target.value })}
         />
-        <label for="email">EMAIL *</label>
+        <label htmlFor="email">EMAIL *</label>
         <input
           id="email"
           type="text"
           value={user.email}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
-        <label for="password">PASSWORD *</label>
+        <label htmlFor="password">PASSWORD *</label>
         <input
           id="password"
           type="password"

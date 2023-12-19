@@ -8,13 +8,11 @@ const usePostDetails = (postId) => {
   const [liked, setLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(0);
   const [error, setError] = useState(false);
-  const [accessToken, setAccessToken] = useState("");
 
   useEffect(() => {
     const fetchDetails = async () => {
       try {
         const userDetails = await userClient.account();
-        setAccessToken(userDetails.accesstoken);
         setUser(userDetails);
 
         const likesResponse = await likesClient.findLikesByPost(postId);
@@ -38,7 +36,6 @@ const usePostDetails = (postId) => {
     numberOfLikes,
     setNumberOfLikes,
     error,
-    accessToken,
   };
 };
 
