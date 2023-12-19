@@ -1,4 +1,4 @@
-import React, { useState, lazy } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import Modal from "../Modal/Modal";
 import { useNavigate } from "react-router-dom";
 import PostHeader from "./PostComponents/PostHeader";
