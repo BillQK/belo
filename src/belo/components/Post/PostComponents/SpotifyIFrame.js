@@ -45,7 +45,7 @@ const SpotifyIframe = ({ contentType, contentID }) => {
           height={iframeHeight}
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
           onLoad={handleIframeLoad}
-          loading="lazy"
+          // loading="lazy"
         />
       )}
     </>
