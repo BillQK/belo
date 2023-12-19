@@ -10,6 +10,7 @@ import useDeletePost from "./hooks/useDeletePost";
 import useSpotifySearch from "./hooks/useSpotifySearch";
 import * as likesClient from "../../Services/likesClient";
 import "./Post.css";
+import LoadingComponent from "./PostComponents/SpotifyIFrameComponents/LoadingComponents";
 const SpotifyIframe = lazy(() => import("./PostComponents/SpotifyIFrame"));
 
 const Post = ({ post, userProfile, type, otherUserID }) => {
@@ -96,15 +97,18 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         isEditable={type === "profile" && !otherUserID}
         onEdit={openEditModal}
       />
-      <div className="post-content">
-        <p>{postState.description}</p>
-        {postState.savedAlbum.contentType && postState.savedAlbum.contentID && (
-          <SpotifyIframe
-            contentType={postState.savedAlbum.contentType}
-            contentID={postState.savedAlbum.contentID}
-          />
-        )}
-      </div>
+      <Suspense fallback={<LoadingComponent />}>
+        <div className="post-content">
+          <p>{postState.description}</p>
+          {postState.savedAlbum.contentType &&
+            postState.savedAlbum.contentID && (
+              <SpotifyIframe
+                contentType={postState.savedAlbum.contentType}
+                contentID={postState.savedAlbum.contentID}
+              />
+            )}
+        </div>
+      </Suspense>
 
       <PostStats
         liked={liked}
