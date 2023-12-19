@@ -7,9 +7,12 @@ const SPOTIFY_BASE_API = `${BASE_API}/search`;
 
 export const redirectToSpotifyLogin = async () => {
   try {
-    const response = await request.get(`${BASE_API}/login`);
-    const { authUrl } = response.data;
-    window.location.href = authUrl; // Redirect the user
+    // just making the reques tto the end point.
+    // the backend will redirect the frontend.
+    await request.get(`${BASE_API}/login`);
+
+    // const { authUrl } = response.data;
+    // window.location.href = authUrl; // Redirect the user
   } catch (error) {
     console.error("Login error:", error);
     // Handle login error (e.g., show a message to the user)
