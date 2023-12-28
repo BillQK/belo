@@ -8,6 +8,7 @@ import usePostDetails from "./hooks/usePostDetails";
 import useSavePost from "./hooks/useSavePost";
 import useDeletePost from "./hooks/useDeletePost";
 import useSpotifySearch from "./hooks/useSpotifySearch";
+import PostCommentSection from "./CommentComponents/PostCommentSection";
 import * as likesClient from "../../Services/likesClient";
 import "./Post.css";
 import LoadingComponent from "./PostComponents/SpotifyIFrameComponents/LoadingComponents";
@@ -18,13 +19,23 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
   const [postState, setPostState] = useState({
     bookMarked: false,
     isEditing: false,
+    isCommenting: false,
     description: post.description,
     searchTerm: "",
     savedAlbum: post.spotifyContent,
   });
 
-  const { user, liked, setLiked, numberOfLikes, setNumberOfLikes } =
-    usePostDetails(post._id);
+  const {
+    user,
+    liked,
+    setLiked,
+    numberOfLikes,
+    setNumberOfLikes,
+    numberOfComments,
+    setNumberOfComments,
+  } = usePostDetails(post._id);
+
+  console.log(numberOfComments);
 
   const { savePost } = useSavePost();
   const { deletePost } = useDeletePost();
@@ -49,6 +60,27 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
       setNumberOfLikes(numberOfLikes - 1);
       await likesClient.deleteLike(user._id, post._id);
     }
+  };
+
+  const toggleComment = async () => {
+    if (!user) {
+      navigate("/Register/login");
+      return;
+    }
+  };
+
+  const openCommentModal = () => {
+    setPostState((ps) => ({
+      ...ps,
+      isCommenting: true,
+    }));
+  };
+
+  const closeCommentModal = () => {
+    setPostState((ps) => ({
+      ...ps,
+      isCommenting: false,
+    }));
   };
 
   const handleSave = async (event) => {
@@ -114,10 +146,16 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         liked={liked}
         numberOfLikes={numberOfLikes}
         onLike={toggleLike}
-        comments={post.comments}
+        comments={numberOfComments}
+        onComment={toggleComment}
         shares={post.shares}
         bookMarked={postState.bookMarked}
         onBookmark={toggleBookMark}
+      />
+
+      <PostCommentSection
+        postId={post._id}
+        setNumberOfComments={setNumberOfComments}
       />
 
       {postState.isEditing && (
@@ -138,6 +176,12 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
             onCancel={closeEditModal}
             onDelete={handleDelete}
           />
+        </Modal>
+      )}
+
+      {postState.isCommenting && (
+        <Modal show={postState.isCommenting} onClose={closeCommentModal}>
+          {/* <CommentEditForm description={postState.description} /> */}
         </Modal>
       )}
     </div>

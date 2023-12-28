@@ -12,17 +12,18 @@ const PostStats = ({
   numberOfLikes,
   onLike,
   comments,
+  onComment,
   shares,
   bookMarked,
   onBookmark,
 }) => {
   return (
-    <div className="post-stat p-2">
+    <div className="post-stat">
       <span onClick={onLike}>
-        {liked ? <FaHeart /> : <FaRegHeart />}
+        {liked ? <FaHeart color="red" /> : <FaRegHeart />}
         <span className="stat"> {numberOfLikes}</span>
       </span>
-      <span>
+      <span onClick={onComment}>
         <FaRegComment />
         <span className="stat"> {comments}</span>
       </span>
@@ -31,7 +32,7 @@ const PostStats = ({
         <span className="stat"> {shares}</span>
       </span>
       <span onClick={onBookmark}>
-        {bookMarked ? <FaBookmark /> : <FaRegBookmark />}
+        {bookMarked ? <FaBookmark color="red" /> : <FaRegBookmark />}
       </span>
     </div>
   );

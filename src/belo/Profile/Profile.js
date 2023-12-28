@@ -28,7 +28,6 @@ const Profile = ({ otherUserID }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
   const [posts, setPosts] = useState(null);
-  const [likedPosts, setLikedPosts] = useState(null);
   const [user, setUser] = useState(null);
   const [coverImage, setcoverImage] = useState(null);
   const [avatarImage, setavatarImage] = useState(null);
@@ -123,7 +122,7 @@ const Profile = ({ otherUserID }) => {
       return;
     }
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
