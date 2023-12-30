@@ -39,6 +39,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
       });
 
       if (commentResponse) {
+        setComment(""); // Reset comment box
         updatePostComments(commentResponse);
 
         // Fetch the user profile for the new comment
@@ -53,7 +54,6 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
           setNumberOfComments(updatedComments.length);
           return updatedComments;
         });
-        setComment("");
       }
     } catch (error) {
       console.error("Error creating comment", error);
