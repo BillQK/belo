@@ -38,9 +38,9 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
         text: comment,
         postParentId: postId,
       });
+      setComment(""); // Reset comment box
 
       if (commentResponse) {
-        setComment(""); // Reset comment box
         updatePostComments(commentResponse);
 
         // Fetch the user profile for the new comment
