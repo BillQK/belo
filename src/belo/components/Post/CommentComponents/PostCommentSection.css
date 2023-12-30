@@ -78,3 +78,8 @@
   margin-top: 15px;
   margin-right: 15px;
 }
+.comment a {
+  text-decoration: none; /* Removes underline */
+  border: none;
+  font-size: medium;
+}

@@ -7,6 +7,7 @@ import { FiCornerRightUp, FiHeart } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { updatePostComments } from "./CommentsReducer";
 import { formatDate } from "../../Utility/FormatDate";
+import { Link } from "react-router-dom";
 
 const PostCommentSection = ({ postId, setNumberOfComments }) => {
   const postComments = useSelector((state) => state.postComments);
@@ -140,12 +141,17 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
           .reverse()
           .map((comment) => (
             <div className="comment" key={comment._id}>
-              <img src={usersProfiles[comment.userId]?.avatar} alt="avatar" />
+              <Link to={`/Dashboard/profile/${comment.userId}`}>
+                <img src={usersProfiles[comment.userId]?.avatar} alt="avatar" />
+              </Link>
               <div className="comment-body">
                 <div className="comment-header">
                   <h4 className="userName">
-                    {"@" + usersProfiles[comment.userId]?.userName}
+                    <Link to={`/Dashboard/profile/${comment.userId}`}>
+                      {"@" + usersProfiles[comment.userId]?.userName}
+                    </Link>
                   </h4>
+
                   <h4>{comment.text}</h4>
                 </div>
                 <div className="comment-sub">
