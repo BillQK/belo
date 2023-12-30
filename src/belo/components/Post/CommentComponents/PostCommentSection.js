@@ -33,12 +33,13 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
       }
       isSubmittingRef.current = true; // Immediately set the ref to true
       setIsSubmitting(true); // Update state for UI indication
+      const commentCpy = comment;
+      setComment(""); // Reset comment box
       const commentResponse = await commentClient.createComment({
         userId: user._id,
-        text: comment,
+        text: commentCpy,
         postParentId: postId,
       });
-      setComment(""); // Reset comment box
 
       if (commentResponse) {
         updatePostComments(commentResponse);
