@@ -144,7 +144,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
 
           <FiCornerRightUp
             onClick={handleCommentSubmit}
-            disabled={isSubmitting || !comment.trim()}
+            disabled={isSubmitting || !comment.trim() || isSubmittingRef}
           />
         </div>
       )}
