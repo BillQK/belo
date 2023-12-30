@@ -133,6 +133,7 @@ const Profile = ({ otherUserID }) => {
           // Fetch and set the profile based on otherUserID when available
           if (otherUserID === user._id) {
             navigate("/Dashboard/profile");
+            window.location.reload();
           }
           const otherUser = await profileClient.getProfileByUserID(otherUserID);
           const posts = await postsClient.getPostsbyUserId(otherUserID);

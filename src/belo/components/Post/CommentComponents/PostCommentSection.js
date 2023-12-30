@@ -10,6 +10,7 @@ import { formatDate } from "../../Utility/FormatDate";
 
 const PostCommentSection = ({ postId, setNumberOfComments }) => {
   const postComments = useSelector((state) => state.postComments);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [user, setUser] = useState(null);
   const [userProfile, setUserProfile] = useState(
     useSelector((state) => state.userProfile) || null
@@ -26,6 +27,10 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   const handleCommentSubmit = async (event) => {
     try {
       event.preventDefault();
+      if (isSubmitting) {
+        return; // Prevents double-click submissions
+      }
+      setIsSubmitting(true); // Start submission process
       const commentResponse = await commentClient.createComment({
         userId: user._id,
         text: comment,
@@ -51,6 +56,8 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
       }
     } catch (error) {
       console.error("Error creating comment", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
