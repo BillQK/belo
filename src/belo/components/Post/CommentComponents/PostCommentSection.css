@@ -26,6 +26,7 @@
 }
 .comment-list {
   overflow-y: scroll;
+  scroll-behavior: calc(100% - 35px);
 }
 
 .comment {

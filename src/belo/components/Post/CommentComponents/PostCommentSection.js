@@ -20,7 +20,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   // Use an object for user profiles, keyed by user ID
   const [usersProfiles, setUsersProfiles] = useState({});
   const isSubmittingRef = useRef(false);
-
+  const commentListRef = useRef(null);
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
@@ -66,6 +66,34 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   };
 
   useEffect(() => {
+    const handleScroll = (event) => {
+      if (
+        commentListRef.current &&
+        commentListRef.current.contains(event.target)
+      ) {
+        // Translate vertical scroll into horizontal
+        commentListRef.current.scrollLeft += event.deltaY;
+
+        // Prevent scrolling on the outer elements
+        event.preventDefault();
+      }
+    };
+
+    // Add event listener to the comment list
+    const commentListElement = commentListRef.current;
+    commentListElement.addEventListener("wheel", handleScroll, {
+      passive: false,
+    });
+
+    // Clean up the event listener
+    return () => {
+      if (commentListElement) {
+        commentListElement.removeEventListener("wheel", handleScroll);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchDetails = async () => {
       try {
         const userDetails = await userClient.account();
@@ -106,7 +134,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   }, [postId]);
   return (
     <div className="comment-section m-2">
-      <div className="comment-list">
+      <div className="comment-list" ref={commentListRef}>
         {comments
           .slice()
           .reverse()
