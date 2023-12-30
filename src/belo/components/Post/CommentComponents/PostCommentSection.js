@@ -19,6 +19,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   const [comments, setComments] = useState(postComments.postComments || []);
   // Use an object for user profiles, keyed by user ID
   const [usersProfiles, setUsersProfiles] = useState({});
+  const isSubmittingRef = useRef(false);
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
@@ -27,11 +28,11 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
   const handleCommentSubmit = async (event) => {
     try {
       event.preventDefault();
-      if (isSubmitting || !comment.trim()) {
-        // Check for non-empty comment
-        return;
+      if (isSubmittingRef.current || !comment.trim()) {
+        return; // Immediate check to prevent double submissions
       }
-      setIsSubmitting(true); // Start submission process
+      isSubmittingRef.current = true; // Immediately set the ref to true
+      setIsSubmitting(true); // Update state for UI indication
       const commentResponse = await commentClient.createComment({
         userId: user._id,
         text: comment,
@@ -58,7 +59,8 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
     } catch (error) {
       console.error("Error creating comment", error);
     } finally {
-      setIsSubmitting(false); // Reset submission status
+      isSubmittingRef.current = false; // Reset the ref
+      setIsSubmitting(false); // Reset the state for UI
     }
   };
 
@@ -141,7 +143,7 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
 
           <FiCornerRightUp
             onClick={handleCommentSubmit}
-            disabled={isSubmitting}
+            disabled={isSubmitting || !comment.trim()}
           />
         </div>
       )}
