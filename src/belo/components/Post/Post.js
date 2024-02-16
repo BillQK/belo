@@ -128,6 +128,7 @@ const Post = ({ post, userProfile, type, otherUserID }) => {
         userName={userProfile?.userName}
         isEditable={type === "profile" && !otherUserID}
         onEdit={openEditModal}
+        createdAt={post.createdAt}
       />
       <Suspense fallback={<LoadingComponent />}>
         <div className="post-content">

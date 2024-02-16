@@ -122,3 +122,8 @@ a {
   pointer-events: none;
   color: white !important;
 }
+.post-date {
+  font-size: var(--text-xs);
+  color: #6476dc !important;
+  margin-left: 10px;
+}

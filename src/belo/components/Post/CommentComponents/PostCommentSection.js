@@ -65,34 +65,52 @@ const PostCommentSection = ({ postId, setNumberOfComments }) => {
       setIsSubmitting(false); // Reset the state for UI
     }
   };
+useEffect(() => {
+  let isDragging = false;
+  let startPos = 0;
+  let scrollLeft = 0;
 
-  useEffect(() => {
-    const handleScroll = (event) => {
-      if (
-        commentListRef.current &&
-        commentListRef.current.contains(event.target)
-      ) {
-        // Translate vertical scroll into horizontal
-        commentListRef.current.scrollLeft += event.deltaY;
+  const startDrag = (e) => {
+    isDragging = true;
+    startPos = e.pageX - commentListRef.current.offsetLeft;
+    scrollLeft = commentListRef.current.scrollLeft;
+    commentListRef.current.style.cursor = "grabbing";
+    commentListRef.current.style.userSelect = "none"; // Prevent text selection during drag
+  };
 
-        // Prevent scrolling on the outer elements
-        event.preventDefault();
-      }
-    };
+  const stopDrag = () => {
+    isDragging = false;
+    commentListRef.current.style.cursor = "grab";
+    commentListRef.current.style.removeProperty("user-select");
+  };
 
-    // Add event listener to the comment list
-    const commentListElement = commentListRef.current;
-    commentListElement.addEventListener("wheel", handleScroll, {
-      passive: false,
-    });
+  const doDrag = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - commentListRef.current.offsetLeft;
+    const walk = (x - startPos) * 2; // The * 2 factor increases the scroll speed
+    commentListRef.current.scrollLeft = scrollLeft - walk;
+  };
 
-    // Clean up the event listener
-    return () => {
-      if (commentListElement) {
-        commentListElement.removeEventListener("wheel", handleScroll);
-      }
-    };
-  }, []);
+  // Add event listeners for mouse down, move, and up
+  const commentListElement = commentListRef.current;
+  if (commentListElement) {
+    commentListElement.addEventListener("mousedown", startDrag);
+    commentListElement.addEventListener("mouseleave", stopDrag);
+    commentListElement.addEventListener("mouseup", stopDrag);
+    commentListElement.addEventListener("mousemove", doDrag);
+  }
+
+  // Clean up the event listeners
+  return () => {
+    if (commentListElement) {
+      commentListElement.removeEventListener("mousedown", startDrag);
+      commentListElement.removeEventListener("mouseleave", stopDrag);
+      commentListElement.removeEventListener("mouseup", stopDrag);
+      commentListElement.removeEventListener("mousemove", doDrag);
+    }
+  };
+}, []);
 
   useEffect(() => {
     const fetchDetails = async () => {
